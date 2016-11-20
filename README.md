@@ -22,8 +22,6 @@ support multi-page architecture without heavy react-router.
 - npm install universal-react-mobx
 - npm run build:dev   // for development
     - contains 'in-line-source-map' for debugging
-    - redux-logger
-    - redux-dev-tool(window.devToolsExtension)
     - 'why-did-you-update' avoidable re-render checking
     - react hot module replacing
 - npm run build:prod  // for production
