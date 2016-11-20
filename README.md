@@ -6,7 +6,7 @@ support multi-page architecture without heavy react-router.
 
 ## Technology Stack:
 - react
-- redux
+- mobx
 - immutableJS (optional)
 - express
 - ES2015
@@ -47,8 +47,7 @@ support multi-page architecture without heavy react-router.
                 appName: 'index',
                 title: 'index page'
             },
-            data: fakeData,
-            rootReducer
+            store: new Store()
         });
     };
 ```
@@ -57,7 +56,7 @@ support multi-page architecture without heavy react-router.
 * add a client page whose name is the same as appName
 ``` javascript
     initializeRender({
-        rootReducer,
+        store: new Store(),
         component: <Page/>
     })
 ```
