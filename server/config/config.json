@@ -1,0 +1,10 @@
+{
+    "application": {
+        "version": {
+            "css": "",
+            "js": ""
+        },
+        "debugName": "test"
+    },
+    "serverName": "isomophic-react-redux-starter"
+}
