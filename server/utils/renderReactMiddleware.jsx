@@ -34,14 +34,11 @@ export default function reactRender(middlewareConfig = {}) {
             let {
                 template = '',
                 component = '',
-                data = {},
                 store = {},
                 locals = {},
                 pageConfig = {},
                 needTransform = true
             } = opts;
-            let transformedData = (typeof middlewareConfig.transformer === 'function' && needTransform)
-                ? middlewareConfig.transformer(data) : data;
             let html = '';
             pageConfig = Object.assign(typeof middlewareConfig.appConfig === 'object'
                 ? middlewareConfig.appConfig : {}, pageConfig);
@@ -60,7 +57,6 @@ export default function reactRender(middlewareConfig = {}) {
             }
 
             let debug = req.query.debug && (req.query.debug === config.application.debugName);
-            let state = data;
             let version = config.application.version;
             let jsVersion = '';
             // prefer config version, useful when using CDN config
@@ -73,7 +69,7 @@ export default function reactRender(middlewareConfig = {}) {
 
             let finalLocals = Object.assign({
                 html,
-                state: safeJSON(data),
+                state: safeJSON(store),
                 appName: 'index',
                 title: '',
                 test: process.env.NODE_ENV !== 'production',

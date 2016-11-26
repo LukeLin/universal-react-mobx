@@ -51,7 +51,7 @@ module.exports = function(DEBUG){
     ];
     if(DEBUG) {
         libs.push(
-            'why-did-you-update',
+            // 'why-did-you-update',
             'mobx-react-devtools',
             'react-addons-perf'
             );

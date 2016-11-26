@@ -6,8 +6,8 @@ import fastclick from 'fastclick';
 import App from '../../../common/App.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
-    var whyDidYouUpdate = require('why-did-you-update').default;
-    whyDidYouUpdate(React);
+    // var whyDidYouUpdate = require('why-did-you-update').default;
+    // whyDidYouUpdate(React);
     var ReactPerf = require('react-addons-perf');
     window.ReactPerf = ReactPerf;
 }
@@ -28,8 +28,10 @@ export default function createRender(middlewareConfig = {}){
 
     return function ({
         component = null,
-        store = {}
+        Store = null
     }) {
+        let store = Store ? new Store(window.__INITIAL_STATE__) : {};
+
         render((
             <Provider store={ store }>
                 <App appConfig={ window.__APP_CONFIG__ }>

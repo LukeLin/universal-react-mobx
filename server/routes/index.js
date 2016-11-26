@@ -4,12 +4,14 @@ import fs from 'fs';
 let router = new Router();
 
 import IndexPage from '../controllers/index';
+import Todos from '../controllers/Todos';
 
 
 /**
  * 首页请求
  */
 router.get('/', IndexPage);
+router.get('/todos', Todos);
 
 
 /**

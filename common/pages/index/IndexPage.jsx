@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Base from '../Base';
-// import DevTools from 'mobx-react-devtools';
 
 @observer(['store'])
-class App extends Base {
+class IndexPage extends Base {
     render() {
         return (
             <div>
                 <button onClick={this.onReset}>
                     Seconds passed: {this.props.store.timer}
                 </button>
-                {/*<DevTools />*/}
             </div>
         );
     }
@@ -21,4 +19,4 @@ class App extends Base {
     }
 }
 
-export default App;
+export default IndexPage;
