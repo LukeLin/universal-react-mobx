@@ -5,6 +5,14 @@ import { observer } from 'mobx-react';
 class Todo extends Component {
     constructor(props, context) {
         super(props, context);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(){
+let { todo } = this.props;
+
+        todo.setFinished(!todo.finished)
     }
 
     render() {
@@ -15,8 +23,9 @@ class Todo extends Component {
                 <input
                     type="checkbox"
                     checked={todo.finished}
-                    onChange={() => todo.finished = !todo.finished}
+                    onChange={ this.onChange }
                     />{todo.title}
+                    <button onClick={ this.props.addTodo }>add</button>
             </li>
         );
     }

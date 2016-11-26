@@ -410,7 +410,11 @@ module.exports =
 	
 	var _events2 = _interopRequireDefault(_events);
 	
+	var _mobx = __webpack_require__(/*! mobx */ 3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	(0, _mobx.useStrict)(true);
 	
 	if (process.browser && ("production") !== 'production') {
 	    var DevTools = __webpack_require__(/*! mobx-react-devtools */ 23).default;
@@ -422,7 +426,9 @@ module.exports =
 	    constructor(props, context) {
 	        super(props, context);
 	
-	        this.devTools = null;
+	        this.state = {
+	            devTools: null
+	        };
 	    }
 	
 	    getChildContext() {
@@ -434,7 +440,9 @@ module.exports =
 	
 	    componentDidMount() {
 	        if (DevTools) {
-	            this.devTools = _react2.default.createElement(DevTools, null);
+	            this.setState({
+	                devTools: _react2.default.createElement(DevTools, null)
+	            });
 	        }
 	    }
 	
@@ -449,7 +457,7 @@ module.exports =
 	            'div',
 	            null,
 	            this.props.children,
-	            this.devTools
+	            this.state.devTools
 	        );
 	    }
 	};
@@ -493,6 +501,8 @@ module.exports =
 	let Todo = (0, _mobxReact.observer)(_class = class Todo extends _react.Component {
 	    constructor(props, context) {
 	        super(props, context);
+	
+	        this.onItemClick = this.onItemClick.bind(this);
 	    }
 	
 	    render() {
@@ -504,9 +514,16 @@ module.exports =
 	            _react2.default.createElement('input', {
 	                type: 'checkbox',
 	                checked: todo.finished,
-	                onChange: () => todo.finished = !todo.finished
+	                onChange: () => {
+	                    todo.setFinished(!todo.finished);
+	                }
 	            }),
-	            todo.title
+	            todo.title,
+	            _react2.default.createElement(
+	                'button',
+	                { onClick: this.props.addTodo },
+	                'add'
+	            )
 	        );
 	    }
 	}) || _class;
@@ -545,6 +562,21 @@ module.exports =
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	let TodoList = (0, _mobxReact.observer)(_class = class TodoList extends _Base2.default {
+	    constructor(props, context) {
+	        super(props, context);
+	
+	        this.addTodo = this.addTodo.bind(this);
+	    }
+	
+	    addTodo(e) {
+	        e.preventDefault();
+	
+	        let { todoList } = this.props;
+	        let todos = todoLisst.todos;
+	
+	        todos.addTodo('some text');
+	    }
+	
 	    render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -552,7 +584,7 @@ module.exports =
 	            _react2.default.createElement(
 	                'ul',
 	                null,
-	                this.props.todoList.todos.map(todo => _react2.default.createElement(_Todo2.default, { todo: todo, key: todo.id }))
+	                this.props.todoList.todos.map(todo => _react2.default.createElement(_Todo2.default, { todo: todo, key: todo.id, addTodo: this.addTodo }))
 	            ),
 	            'Tasks left: ',
 	            this.props.todoList.unfinishedTodoCount
@@ -725,12 +757,16 @@ module.exports =
 	
 	        this.title = title;
 	    }
+	
+	    setFinished(finished) {
+	        this.finished = finished;
+	    }
 	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'finished', [_mobx.observable], {
 	    enumerable: true,
 	    initializer: function () {
 	        return false;
 	    }
-	})), _class);
+	}), _applyDecoratedDescriptor(_class.prototype, 'setFinished', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setFinished'), _class.prototype)), _class);
 	exports.default = Todo;
 
 /***/ },
@@ -884,12 +920,16 @@ module.exports =
 	
 	        (0, _mobx.extendObservable)(this, state);
 	    }
+	
+	    addTodo(todo) {
+	        todo && this.todos.push(todo);
+	    }
 	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'todos', [_mobx.observable], {
 	    enumerable: true,
 	    initializer: function () {
 	        return [];
 	    }
-	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype)), _class);
+	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addTodo'), _class.prototype)), _class);
 	exports.default = TodoList;
 
 /***/ },
@@ -949,8 +989,14 @@ module.exports =
 	module.exports = function (req, res, next) {
 	    let store = new _todos2.default();
 	
-	    store.todos.push(new _todosModel2.default("Get Coffee"), new _todosModel2.default("Write simpler code"));
-	    store.todos[0].finished = true;
+	    let {
+	        todos
+	    } = store;
+	
+	    todos.addTodo(new _todosModel2.default("Get Coffee"));
+	    todos.addTodo(new _todosModel2.default("Write simpler code"));
+	
+	    store.todos[0].setFinished(true);
 	
 	    res.renderReactHTML({
 	        component: _react2.default.createElement(_TodosPage2.default, null),

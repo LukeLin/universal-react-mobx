@@ -2,6 +2,9 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'mobx-react';
 import fastclick from 'fastclick';
+import { useStrict } from 'mobx';
+
+// useStrict(true);
 
 import App from '../../../common/App.jsx';
 
@@ -14,6 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // fastclick解决ios和部分安卓click事件的问题
 fastclick.attach(document.body);
+
 
 export default function createRender(middlewareConfig = {}){
     let page = document.getElementById('page');
@@ -30,7 +34,7 @@ export default function createRender(middlewareConfig = {}){
         component = null,
         Store = null
     }) {
-        let store = Store ? new Store(window.__INITIAL_STATE__) : {};
+        let store = Store ? Store.fromJS(window.__INITIAL_STATE__) : {};
 
         render((
             <Provider store={ store }>
