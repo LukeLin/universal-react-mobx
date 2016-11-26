@@ -54,7 +54,7 @@ support multi-page architecture without heavy react-router.
 * add a client page whose name is the same as appName
 ``` javascript
     initializeRender({
-        store: new Store(),
+        Store
         component: <Page/>
     })
 ```
