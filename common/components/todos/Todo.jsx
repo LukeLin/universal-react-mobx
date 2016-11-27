@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import { observer } from 'mobx-react';
+import React, {PropTypes, Component} from 'react';
+import {observer} from 'mobx-react';
 
 @observer
 class Todo extends Component {
@@ -9,14 +9,14 @@ class Todo extends Component {
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(){
-let { todo } = this.props;
+    onChange() {
+        let {todo} = this.props;
 
         todo.setFinished(!todo.finished)
     }
 
     render() {
-        let { todo } = this.props;
+        let {todo} = this.props;
 
         return (
             <li>
@@ -24,8 +24,8 @@ let { todo } = this.props;
                     type="checkbox"
                     checked={todo.finished}
                     onChange={ this.onChange }
-                    />{todo.title}
-                    <button onClick={ this.props.addTodo }>add</button>
+                />{todo.title}
+                <button onClick={ this.props.addTodo }>add</button>
             </li>
         );
     }

@@ -9,7 +9,7 @@ class TodoStore {
     }
 
     constructor(state = {}){
-        // extendObservable(this, state);
+        extendObservable(this, state);
     }
 
     @action
@@ -18,13 +18,9 @@ class TodoStore {
     }
 
     static fromJS(state){
-        const todoStore = new TodoStore();
-		todoStore.todos = state.map(item => TodoModel.fromJS(todoStore, item));
+        let todoStore = new TodoStore();
+		todoStore.todos = state.todos.map(item => TodoModel.fromJS(item));
 		return todoStore;
-    }
-
-    toJS(){
-        return this.todos.map(todo => todo.toJS());
     }
 }
 

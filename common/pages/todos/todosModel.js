@@ -1,5 +1,6 @@
 import {
     observable,
+    extendObservable,
     action
 } from 'mobx';
 
@@ -8,11 +9,8 @@ class TodoModel {
     @observable title;
     @observable finished = false;
 
-	constructor(store, id, title, finished) {
-		this.store = store;
-		this.id = id;
-		this.title = title;
-		this.finished = finished;
+	constructor(data) {
+        extendObservable(this, data);
 	}
 
     @action
@@ -20,16 +18,8 @@ class TodoModel {
         this.finished = finished
     }
 
-    toJS() {
-        return {
-            id: this.id,
-            title: this.title,
-            finished: this.finished
-        };
-    }
-
-    static fromJS(store, object) {
-        return new TodoModel(store, object.id, object.title, object.finished);
+    static fromJS(object) {
+        return new TodoModel(object);
     }
 }
 

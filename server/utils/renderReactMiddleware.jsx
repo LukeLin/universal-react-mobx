@@ -69,7 +69,7 @@ export default function reactRender(middlewareConfig = {}) {
 
             let finalLocals = Object.assign({
                 html,
-                state: safeJSON(store.toJS()),
+                state: safeJSON(store),
                 appName: 'index',
                 title: '',
                 test: process.env.NODE_ENV !== 'production',

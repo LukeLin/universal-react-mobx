@@ -17,8 +17,10 @@ class TodoList extends Base {
         e.preventDefault();
 
         let { todoList } = this.props;
-        
-        todoList.addTodo(new TodoModel('some text'));
+
+        todoList.addTodo(new TodoModel({
+            title: 'some text'
+        }));
     }
 
     render() {

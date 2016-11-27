@@ -7,13 +7,17 @@ import Todo from '../../common/pages/todos/todosModel';
 module.exports = function (req, res, next) {
     let store = new Store();
 
-    store.addTodo(new Todo("Get Coffee"));
-    store.addTodo(new Todo("Write simpler code"));
+    store.addTodo(new Todo({
+        title: "Get Coffee"
+    }));
+    store.addTodo(new Todo({
+        title: "Write simpler code"
+    }));
 
-    // store[0].setFinished(true);
+    store.todos[0].setFinished(true);
 
     res.renderReactHTML({
-        component: < Page / > ,
+        component: <Page/> ,
         store,
         locals: {
             appName: 'todos',

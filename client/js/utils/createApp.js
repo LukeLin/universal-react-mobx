@@ -2,9 +2,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'mobx-react';
 import fastclick from 'fastclick';
-import { useStrict } from 'mobx';
-
-// useStrict(true);
 
 import App from '../../../common/App.jsx';
 
