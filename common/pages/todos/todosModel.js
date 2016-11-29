@@ -1,16 +1,19 @@
 import {
     observable,
     extendObservable,
-    action
+    action,
+    runInAction
 } from 'mobx';
 
 class TodoModel {
-    id = Math.random();
-    @observable title;
+    id;
+    @observable title = '';
     @observable finished = false;
 
 	constructor(data) {
-        extendObservable(this, data);
+        runInAction('initialize TodoModel', () => {
+            extendObservable(this, data);
+        });
 	}
 
     @action

@@ -1,26 +1,42 @@
-import { observable, computed, extendObservable, action } from 'mobx';
+import {
+    observable,
+    computed,
+    extendObservable,
+    action,
+    runInAction
+} from 'mobx';
 
 import TodoModel from '../pages/todos/todosModel';
 
 class TodoStore {
     @observable todos = [];
-    @computed get unfinishedTodoCount(){
+    @computed get unfinishedTodoCount() {
         return this.todos.filter(todo => !todo.finished).length;
     }
 
-    constructor(state = {}){
-        extendObservable(this, state);
+    constructor(state = {}) {
+        // required in strict mode to be allowed to update state:
+        runInAction('initialize TodoStore', () => {
+            extendObservable(this, state);
+        });
+    
     }
 
     @action
-    addTodo(todo){
+    addTodo(todo) {
         todo && this.todos.push(todo);
     }
 
-    static fromJS(state){
-        let todoStore = new TodoStore();
-		todoStore.todos = state.todos.map(item => TodoModel.fromJS(item));
-		return todoStore;
+    @action
+    removeTodo(index){
+        this.todos.splice(index, 1);
+    }
+
+    static fromJS(state) {
+        let todoStore = new TodoStore({
+            todos: state.todos.map(item => TodoModel.fromJS(item))
+        });
+        return todoStore;
     }
 }
 

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import EventEmitter from 'events';
-// import { useStrict } from 'mobx';
-//
-// useStrict(true);
+import { useStrict } from 'mobx';
+
+useStrict(true);
 
 
 if(process.browser && process.env.NODE_ENV !== 'production'){

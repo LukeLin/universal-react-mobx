@@ -8,9 +8,11 @@ module.exports = function (req, res, next) {
     let store = new Store();
 
     store.addTodo(new Todo({
+        id: 0,
         title: "Get Coffee"
     }));
     store.addTodo(new Todo({
+        id: 1,
         title: "Write simpler code"
     }));
 

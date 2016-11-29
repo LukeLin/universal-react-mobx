@@ -7,6 +7,7 @@ class Todo extends Component {
         super(props, context);
 
         this.onChange = this.onChange.bind(this);
+        this.removeTodo = this.removeTodo.bind(this);
     }
 
     onChange() {
@@ -15,8 +16,12 @@ class Todo extends Component {
         todo.setFinished(!todo.finished)
     }
 
+    removeTodo(e){
+        this.props.removeTodo(e, this.props.index);
+    }
+
     render() {
-        let {todo} = this.props;
+        let {todo, index} = this.props;
 
         return (
             <li>
@@ -26,6 +31,7 @@ class Todo extends Component {
                     onChange={ this.onChange }
                 />{todo.title}
                 <button onClick={ this.props.addTodo }>add</button>
+                <button onClick={ this.removeTodo }>remove</button>
             </li>
         );
     }

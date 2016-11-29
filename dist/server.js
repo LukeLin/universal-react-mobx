@@ -357,7 +357,7 @@ module.exports =
 	    value: true
 	});
 	
-	var _desc, _value, _class, _descriptor;
+	var _desc, _value, _class, _descriptor, _descriptor2;
 	
 	var _mobx = __webpack_require__(/*! mobx */ 3);
 	
@@ -407,11 +407,13 @@ module.exports =
 	let TodoModel = (_class = class TodoModel {
 	
 	    constructor(data) {
-	        this.id = Math.random();
+	        _initDefineProp(this, 'title', _descriptor, this);
 	
-	        _initDefineProp(this, 'finished', _descriptor, this);
+	        _initDefineProp(this, 'finished', _descriptor2, this);
 	
-	        (0, _mobx.extendObservable)(this, data);
+	        (0, _mobx.runInAction)('initialize TodoModel', () => {
+	            (0, _mobx.extendObservable)(this, data);
+	        });
 	    }
 	
 	    setFinished(finished) {
@@ -421,7 +423,12 @@ module.exports =
 	    static fromJS(object) {
 	        return new TodoModel(object);
 	    }
-	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'finished', [_mobx.observable], {
+	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'title', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function () {
+	        return '';
+	    }
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'finished', [_mobx.observable], {
 	    enumerable: true,
 	    initializer: function () {
 	        return false;
@@ -495,12 +502,11 @@ module.exports =
 	
 	var _events2 = _interopRequireDefault(_events);
 	
+	var _mobx = __webpack_require__(/*! mobx */ 3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import { useStrict } from 'mobx';
-	//
-	// useStrict(true);
-	
+	(0, _mobx.useStrict)(true);
 	
 	if (process.browser && ("production") !== 'production') {
 	    var DevTools = __webpack_require__(/*! mobx-react-devtools */ 23).default;
@@ -589,6 +595,7 @@ module.exports =
 	        super(props, context);
 	
 	        this.onChange = this.onChange.bind(this);
+	        this.removeTodo = this.removeTodo.bind(this);
 	    }
 	
 	    onChange() {
@@ -597,8 +604,12 @@ module.exports =
 	        todo.setFinished(!todo.finished);
 	    }
 	
+	    removeTodo(e) {
+	        this.props.removeTodo(e, this.props.index);
+	    }
+	
 	    render() {
-	        let { todo } = this.props;
+	        let { todo, index } = this.props;
 	
 	        return _react2.default.createElement(
 	            'li',
@@ -613,6 +624,11 @@ module.exports =
 	                'button',
 	                { onClick: this.props.addTodo },
 	                'add'
+	            ),
+	            _react2.default.createElement(
+	                'button',
+	                { onClick: this.removeTodo },
+	                'remove'
 	            )
 	        );
 	    }
@@ -660,6 +676,7 @@ module.exports =
 	        super(props, context);
 	
 	        this.addTodo = this.addTodo.bind(this);
+	        this.removeTodo = this.removeTodo.bind(this);
 	    }
 	
 	    addTodo(e) {
@@ -668,21 +685,38 @@ module.exports =
 	        let { todoList } = this.props;
 	
 	        todoList.addTodo(new _todosModel2.default({
-	            title: 'some text'
+	            id: todoList.todos.length,
+	            title: 'some text' + todoList.todos.length
 	        }));
 	    }
 	
+	    removeTodo(e, index) {
+	        e.preventDefault();
+	
+	        let { todoList } = this.props;
+	
+	        todoList.removeTodo(index);
+	    }
+	
 	    render() {
+	        let { todoList } = this.props;
+	
 	        return _react2.default.createElement(
 	            'div',
 	            null,
 	            _react2.default.createElement(
 	                'ul',
 	                null,
-	                this.props.todoList.todos.map(todo => _react2.default.createElement(_Todo2.default, { todo: todo, key: todo.id, addTodo: this.addTodo }))
+	                todoList.todos.map((todo, index) => {
+	                    return _react2.default.createElement(_Todo2.default, { todo: todo,
+	                        index: index,
+	                        key: todo.id,
+	                        addTodo: this.addTodo,
+	                        removeTodo: this.removeTodo });
+	                })
 	            ),
 	            'Tasks left: ',
-	            this.props.todoList.unfinishedTodoCount
+	            todoList.unfinishedTodoCount
 	        );
 	    }
 	}) || _class;
@@ -938,16 +972,24 @@ module.exports =
 	    constructor(state = {}) {
 	        _initDefineProp(this, 'todos', _descriptor, this);
 	
-	        (0, _mobx.extendObservable)(this, state);
+	        // required in strict mode to be allowed to update state:
+	        (0, _mobx.runInAction)('initialize TodoStore', () => {
+	            (0, _mobx.extendObservable)(this, state);
+	        });
 	    }
 	
 	    addTodo(todo) {
 	        todo && this.todos.push(todo);
 	    }
 	
+	    removeTodo(index) {
+	        this.todos.splice(index, 1);
+	    }
+	
 	    static fromJS(state) {
-	        let todoStore = new TodoStore();
-	        todoStore.todos = state.todos.map(item => _todosModel2.default.fromJS(item));
+	        let todoStore = new TodoStore({
+	            todos: state.todos.map(item => _todosModel2.default.fromJS(item))
+	        });
 	        return todoStore;
 	    }
 	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'todos', [_mobx.observable], {
@@ -955,7 +997,7 @@ module.exports =
 	    initializer: function () {
 	        return [];
 	    }
-	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addTodo'), _class.prototype)), _class);
+	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addTodo'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'removeTodo'), _class.prototype)), _class);
 	exports.default = TodoStore;
 
 /***/ },
@@ -1016,9 +1058,11 @@ module.exports =
 	    let store = new _todos2.default();
 	
 	    store.addTodo(new _todosModel2.default({
+	        id: 0,
 	        title: "Get Coffee"
 	    }));
 	    store.addTodo(new _todosModel2.default({
+	        id: 1,
 	        title: "Write simpler code"
 	    }));
 	
