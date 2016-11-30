@@ -7,7 +7,6 @@ support multi-page architecture without heavy react-router.
 ## Technology Stack:
 - react
 - mobx
-- immutableJS (optional)
 - express
 - ES2015
 - webpack
