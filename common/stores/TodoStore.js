@@ -6,7 +6,7 @@ import {
     runInAction
 } from 'mobx';
 
-import TodoModel from '../pages/todos/todosModel';
+import TodoModel from '../models/TodoModel';
 
 class TodoStore {
     @observable todos = [];
@@ -19,7 +19,6 @@ class TodoStore {
         runInAction('initialize TodoStore', () => {
             extendObservable(this, state);
         });
-    
     }
 
     @action

@@ -3,18 +3,18 @@ import { observer } from 'mobx-react';
 import Base from '../../pages/Base';
 
 import Todo from './Todo';
-import TodoModel from '../../pages/todos/todosModel.js';
+import TodoModel from '../../models/TodoModel.js';
 
 @observer
 class TodoList extends Base {
     constructor(props, context) {
         super(props, context);
 
-        this.addTodo = this.addTodo.bind(this);
-        this.removeTodo = this.removeTodo.bind(this);
+        // this.addTodo = this.addTodo.bind(this);
+        // this.removeTodo = this.removeTodo.bind(this);
     }
 
-    addTodo(e) {
+    onAddTodo(e) {
         e.preventDefault();
 
         let { todoList } = this.props;
@@ -25,7 +25,7 @@ class TodoList extends Base {
         }));
     }
 
-    removeTodo(e, index){
+    onRemoveTodo(e, index){
         e.preventDefault();
 
         let { todoList } = this.props;
@@ -44,8 +44,8 @@ class TodoList extends Base {
                             <Todo todo={todo}
                         index={ index }
                             key={todo.id} 
-                            addTodo={this.addTodo}
-                            removeTodo={ this.removeTodo }/>
+                            addTodo={this.onAddTodo}
+                            removeTodo={ this.onRemoveTodo }/>
                         );
                     })}
                 </ul>

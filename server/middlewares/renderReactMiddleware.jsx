@@ -1,7 +1,8 @@
 import ejs from 'ejs';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { Provider, useStaticRendering } from 'mobx-react'
+import { jsObj as safeJSON } from 'secure-filters';
 import fs from 'fs';
 
 import App from '../../common/App.jsx';
@@ -23,11 +24,6 @@ export function getDefaultJSVersion(name) {
     return webpackAssets[name];
 }
 
-export function safeJSON(obj){
-    return JSON.stringify(obj).replace(/<\/script/gi, '<\\/script')
-        .replace(/<!--/g, '<\\!--');
-}
-
 export default function reactRender(middlewareConfig = {}) {
     return function (req, res, next) {
         res.renderReactHTML = function (opts = {}) {
@@ -45,9 +41,9 @@ export default function reactRender(middlewareConfig = {}) {
 
             try {
                 html = renderToString((
-                    <Provider store={ store }>
-                        <App appconfig={ pageConfig }>
-                            { component }
+                    <Provider store={store}>
+                        <App appconfig={pageConfig}>
+                            {component}
                         </App>
                     </Provider>
                 ));

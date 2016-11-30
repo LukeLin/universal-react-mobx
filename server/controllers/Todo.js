@@ -1,17 +1,17 @@
 import React from 'react';
-import Page from '../../common/pages/todos/TodosPage.jsx';
-import Store from '../../common/stores/todos';
-import Todo from '../../common/pages/todos/todosModel';
+import Page from '../../common/pages/todo/TodoPage.jsx';
+import Store from '../../common/stores/TodoStore';
+import TodoModel from '../../common/models/TodoModel';
 
 
 module.exports = function (req, res, next) {
     let store = new Store();
 
-    store.addTodo(new Todo({
+    store.addTodo(new TodoModel({
         id: 0,
         title: "Get Coffee"
     }));
-    store.addTodo(new Todo({
+    store.addTodo(new TodoModel({
         id: 1,
         title: "Write simpler code"
     }));
@@ -22,8 +22,8 @@ module.exports = function (req, res, next) {
         component: <Page/> ,
         store,
         locals: {
-            appName: 'todos',
-            title: 'todos page'
+            appName: 'todo',
+            title: 'todo page'
         },
         pageConfig: {
             user: 'test'

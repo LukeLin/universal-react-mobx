@@ -87,7 +87,7 @@ module.exports =
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _index = __webpack_require__(/*! ./routes/index */ 20);
+	var _index = __webpack_require__(/*! ./routes/index */ 22);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -95,11 +95,11 @@ module.exports =
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
-	var _allowCrossDomain = __webpack_require__(/*! ./utils/allowCrossDomain */ 21);
+	var _allowCrossDomain = __webpack_require__(/*! ./middlewares/allowCrossDomain */ 20);
 	
 	var _allowCrossDomain2 = _interopRequireDefault(_allowCrossDomain);
 	
-	var _renderReactMiddleware = __webpack_require__(/*! ./utils/renderReactMiddleware */ 22);
+	var _renderReactMiddleware = __webpack_require__(/*! ./middlewares/renderReactMiddleware */ 21);
 	
 	var _renderReactMiddleware2 = _interopRequireDefault(_renderReactMiddleware);
 	
@@ -346,9 +346,9 @@ module.exports =
 
 /***/ },
 /* 5 */
-/*!******************************************!*\
-  !*** ./common/pages/todos/todosModel.js ***!
-  \******************************************/
+/*!************************************!*\
+  !*** ./common/models/TodoModel.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -569,9 +569,9 @@ module.exports =
 
 /***/ },
 /* 11 */
-/*!******************************************!*\
-  !*** ./common/components/todos/Todo.jsx ***!
-  \******************************************/
+/*!*****************************************!*\
+  !*** ./common/components/todo/Todo.jsx ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -588,14 +588,18 @@ module.exports =
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
+	var _Base = __webpack_require__(/*! ../../pages/Base */ 4);
+	
+	var _Base2 = _interopRequireDefault(_Base);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	let Todo = (0, _mobxReact.observer)(_class = class Todo extends _react.Component {
+	let Todo = (0, _mobxReact.observer)(_class = class Todo extends _Base2.default {
 	    constructor(props, context) {
 	        super(props, context);
 	
-	        this.onChange = this.onChange.bind(this);
-	        this.removeTodo = this.removeTodo.bind(this);
+	        // this.onChange = this.onChange.bind(this);
+	        // this.removeTodo = this.removeTodo.bind(this);
 	    }
 	
 	    onChange() {
@@ -604,7 +608,7 @@ module.exports =
 	        todo.setFinished(!todo.finished);
 	    }
 	
-	    removeTodo(e) {
+	    onRemoveTodo(e) {
 	        this.props.removeTodo(e, this.props.index);
 	    }
 	
@@ -627,7 +631,7 @@ module.exports =
 	            ),
 	            _react2.default.createElement(
 	                'button',
-	                { onClick: this.removeTodo },
+	                { onClick: this.onRemoveTodo },
 	                'remove'
 	            )
 	        );
@@ -638,9 +642,9 @@ module.exports =
 
 /***/ },
 /* 12 */
-/*!**********************************************!*\
-  !*** ./common/components/todos/TodoList.jsx ***!
-  \**********************************************/
+/*!*********************************************!*\
+  !*** ./common/components/todo/TodoList.jsx ***!
+  \*********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -665,9 +669,9 @@ module.exports =
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
-	var _todosModel = __webpack_require__(/*! ../../pages/todos/todosModel.js */ 5);
+	var _TodoModel = __webpack_require__(/*! ../../models/TodoModel.js */ 5);
 	
-	var _todosModel2 = _interopRequireDefault(_todosModel);
+	var _TodoModel2 = _interopRequireDefault(_TodoModel);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -675,22 +679,22 @@ module.exports =
 	    constructor(props, context) {
 	        super(props, context);
 	
-	        this.addTodo = this.addTodo.bind(this);
-	        this.removeTodo = this.removeTodo.bind(this);
+	        // this.addTodo = this.addTodo.bind(this);
+	        // this.removeTodo = this.removeTodo.bind(this);
 	    }
 	
-	    addTodo(e) {
+	    onAddTodo(e) {
 	        e.preventDefault();
 	
 	        let { todoList } = this.props;
 	
-	        todoList.addTodo(new _todosModel2.default({
+	        todoList.addTodo(new _TodoModel2.default({
 	            id: todoList.todos.length,
 	            title: 'some text' + todoList.todos.length
 	        }));
 	    }
 	
-	    removeTodo(e, index) {
+	    onRemoveTodo(e, index) {
 	        e.preventDefault();
 	
 	        let { todoList } = this.props;
@@ -711,8 +715,8 @@ module.exports =
 	                    return _react2.default.createElement(_Todo2.default, { todo: todo,
 	                        index: index,
 	                        key: todo.id,
-	                        addTodo: this.addTodo,
-	                        removeTodo: this.removeTodo });
+	                        addTodo: this.onAddTodo,
+	                        removeTodo: this.onRemoveTodo });
 	                })
 	            ),
 	            'Tasks left: ',
@@ -777,9 +781,9 @@ module.exports =
 
 /***/ },
 /* 14 */
-/*!******************************************!*\
-  !*** ./common/pages/todos/TodosPage.jsx ***!
-  \******************************************/
+/*!****************************************!*\
+  !*** ./common/pages/todo/TodoPage.jsx ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -800,13 +804,13 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _TodoList = __webpack_require__(/*! ../../components/todos/TodoList */ 12);
+	var _TodoList = __webpack_require__(/*! ../../components/todo/TodoList */ 12);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	let TodosPage = (_dec = (0, _mobxReact.observer)(['store']), _dec(_class = class TodosPage extends _Base2.default {
+	let TodoPage = (_dec = (0, _mobxReact.observer)(['store']), _dec(_class = class TodoPage extends _Base2.default {
 	    constructor(props, context) {
 	        super(props, context);
 	    }
@@ -815,10 +819,112 @@ module.exports =
 	        return _react2.default.createElement(_TodoList2.default, { todoList: this.props.store });
 	    }
 	}) || _class);
-	exports.default = TodosPage;
+	exports.default = TodoPage;
 
 /***/ },
 /* 15 */
+/*!************************************!*\
+  !*** ./common/stores/TodoStore.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _desc, _value, _class, _descriptor;
+	
+	var _mobx = __webpack_require__(/*! mobx */ 3);
+	
+	var _TodoModel = __webpack_require__(/*! ../models/TodoModel */ 5);
+	
+	var _TodoModel2 = _interopRequireDefault(_TodoModel);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _initDefineProp(target, property, descriptor, context) {
+	    if (!descriptor) return;
+	    Object.defineProperty(target, property, {
+	        enumerable: descriptor.enumerable,
+	        configurable: descriptor.configurable,
+	        writable: descriptor.writable,
+	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+	    });
+	}
+	
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	    var desc = {};
+	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	        desc[key] = descriptor[key];
+	    });
+	    desc.enumerable = !!desc.enumerable;
+	    desc.configurable = !!desc.configurable;
+	
+	    if ('value' in desc || desc.initializer) {
+	        desc.writable = true;
+	    }
+	
+	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	        return decorator(target, property, desc) || desc;
+	    }, desc);
+	
+	    if (context && desc.initializer !== void 0) {
+	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	        desc.initializer = undefined;
+	    }
+	
+	    if (desc.initializer === void 0) {
+	        Object['define' + 'Property'](target, property, desc);
+	        desc = null;
+	    }
+	
+	    return desc;
+	}
+	
+	function _initializerWarningHelper(descriptor, context) {
+	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+	
+	let TodoStore = (_class = class TodoStore {
+	    get unfinishedTodoCount() {
+	        return this.todos.filter(todo => !todo.finished).length;
+	    }
+	
+	    constructor(state = {}) {
+	        _initDefineProp(this, 'todos', _descriptor, this);
+	
+	        // required in strict mode to be allowed to update state:
+	        (0, _mobx.runInAction)('initialize TodoStore', () => {
+	            (0, _mobx.extendObservable)(this, state);
+	        });
+	    }
+	
+	    addTodo(todo) {
+	        todo && this.todos.push(todo);
+	    }
+	
+	    removeTodo(index) {
+	        this.todos.splice(index, 1);
+	    }
+	
+	    static fromJS(state) {
+	        let todoStore = new TodoStore({
+	            todos: state.todos.map(item => _TodoModel2.default.fromJS(item))
+	        });
+	        return todoStore;
+	    }
+	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'todos', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function () {
+	        return [];
+	    }
+	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addTodo'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'removeTodo'), _class.prototype)), _class);
+	exports.default = TodoStore;
+
+/***/ },
+/* 16 */
 /*!********************************!*\
   !*** ./common/stores/index.js ***!
   \********************************/
@@ -899,108 +1005,6 @@ module.exports =
 	exports.default = IndexStore;
 
 /***/ },
-/* 16 */
-/*!********************************!*\
-  !*** ./common/stores/todos.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _desc, _value, _class, _descriptor;
-	
-	var _mobx = __webpack_require__(/*! mobx */ 3);
-	
-	var _todosModel = __webpack_require__(/*! ../pages/todos/todosModel */ 5);
-	
-	var _todosModel2 = _interopRequireDefault(_todosModel);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _initDefineProp(target, property, descriptor, context) {
-	    if (!descriptor) return;
-	    Object.defineProperty(target, property, {
-	        enumerable: descriptor.enumerable,
-	        configurable: descriptor.configurable,
-	        writable: descriptor.writable,
-	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-	    });
-	}
-	
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	    var desc = {};
-	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	        desc[key] = descriptor[key];
-	    });
-	    desc.enumerable = !!desc.enumerable;
-	    desc.configurable = !!desc.configurable;
-	
-	    if ('value' in desc || desc.initializer) {
-	        desc.writable = true;
-	    }
-	
-	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	        return decorator(target, property, desc) || desc;
-	    }, desc);
-	
-	    if (context && desc.initializer !== void 0) {
-	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	        desc.initializer = undefined;
-	    }
-	
-	    if (desc.initializer === void 0) {
-	        Object['define' + 'Property'](target, property, desc);
-	        desc = null;
-	    }
-	
-	    return desc;
-	}
-	
-	function _initializerWarningHelper(descriptor, context) {
-	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-	}
-	
-	let TodoStore = (_class = class TodoStore {
-	    get unfinishedTodoCount() {
-	        return this.todos.filter(todo => !todo.finished).length;
-	    }
-	
-	    constructor(state = {}) {
-	        _initDefineProp(this, 'todos', _descriptor, this);
-	
-	        // required in strict mode to be allowed to update state:
-	        (0, _mobx.runInAction)('initialize TodoStore', () => {
-	            (0, _mobx.extendObservable)(this, state);
-	        });
-	    }
-	
-	    addTodo(todo) {
-	        todo && this.todos.push(todo);
-	    }
-	
-	    removeTodo(index) {
-	        this.todos.splice(index, 1);
-	    }
-	
-	    static fromJS(state) {
-	        let todoStore = new TodoStore({
-	            todos: state.todos.map(item => _todosModel2.default.fromJS(item))
-	        });
-	        return todoStore;
-	    }
-	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'todos', [_mobx.observable], {
-	    enumerable: true,
-	    initializer: function () {
-	        return [];
-	    }
-	}), _applyDecoratedDescriptor(_class.prototype, 'unfinishedTodoCount', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'unfinishedTodoCount'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addTodo'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeTodo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'removeTodo'), _class.prototype)), _class);
-	exports.default = TodoStore;
-
-/***/ },
 /* 17 */
 /*!******************************!*\
   !*** ./server/apis/index.js ***!
@@ -1029,9 +1033,9 @@ module.exports =
 
 /***/ },
 /* 18 */
-/*!*************************************!*\
-  !*** ./server/controllers/Todos.js ***!
-  \*************************************/
+/*!************************************!*\
+  !*** ./server/controllers/Todo.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1040,28 +1044,28 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TodosPage = __webpack_require__(/*! ../../common/pages/todos/TodosPage.jsx */ 14);
+	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 14);
 	
-	var _TodosPage2 = _interopRequireDefault(_TodosPage);
+	var _TodoPage2 = _interopRequireDefault(_TodoPage);
 	
-	var _todos = __webpack_require__(/*! ../../common/stores/todos */ 16);
+	var _TodoStore = __webpack_require__(/*! ../../common/stores/TodoStore */ 15);
 	
-	var _todos2 = _interopRequireDefault(_todos);
+	var _TodoStore2 = _interopRequireDefault(_TodoStore);
 	
-	var _todosModel = __webpack_require__(/*! ../../common/pages/todos/todosModel */ 5);
+	var _TodoModel = __webpack_require__(/*! ../../common/models/TodoModel */ 5);
 	
-	var _todosModel2 = _interopRequireDefault(_todosModel);
+	var _TodoModel2 = _interopRequireDefault(_TodoModel);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	module.exports = function (req, res, next) {
-	    let store = new _todos2.default();
+	    let store = new _TodoStore2.default();
 	
-	    store.addTodo(new _todosModel2.default({
+	    store.addTodo(new _TodoModel2.default({
 	        id: 0,
 	        title: "Get Coffee"
 	    }));
-	    store.addTodo(new _todosModel2.default({
+	    store.addTodo(new _TodoModel2.default({
 	        id: 1,
 	        title: "Write simpler code"
 	    }));
@@ -1069,11 +1073,11 @@ module.exports =
 	    store.todos[0].setFinished(true);
 	
 	    res.renderReactHTML({
-	        component: _react2.default.createElement(_TodosPage2.default, null),
+	        component: _react2.default.createElement(_TodoPage2.default, null),
 	        store,
 	        locals: {
-	            appName: 'todos',
-	            title: 'todos page'
+	            appName: 'todo',
+	            title: 'todo page'
 	        },
 	        pageConfig: {
 	            user: 'test'
@@ -1098,7 +1102,7 @@ module.exports =
 	
 	var _IndexPage2 = _interopRequireDefault(_IndexPage);
 	
-	var _index = __webpack_require__(/*! ../../common/stores/index */ 15);
+	var _index = __webpack_require__(/*! ../../common/stores/index */ 16);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -1120,67 +1124,9 @@ module.exports =
 
 /***/ },
 /* 20 */
-/*!********************************!*\
-  !*** ./server/routes/index.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _express = __webpack_require__(/*! express */ 6);
-	
-	var _fs = __webpack_require__(/*! fs */ 9);
-	
-	var _fs2 = _interopRequireDefault(_fs);
-	
-	var _index = __webpack_require__(/*! ../controllers/index */ 19);
-	
-	var _index2 = _interopRequireDefault(_index);
-	
-	var _Todos = __webpack_require__(/*! ../controllers/Todos */ 18);
-	
-	var _Todos2 = _interopRequireDefault(_Todos);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-	
-	let router = new _express.Router();
-	
-	/**
-	 * 首页请求
-	 */
-	router.get('/', _index2.default);
-	router.get('/todos', _Todos2.default);
-	
-	/**
-	 * 静态资源
-	 */
-	let content = _fs2.default.readFileSync(__dirname + '/../../client/js/utils/sw.js', 'utf8');
-	
-	router.get('/sw.js', (() => {
-	  var _ref = _asyncToGenerator(function* (req, res) {
-	    res.set('Content-Type', 'application/javascript');
-	    res.send(content);
-	  });
-	
-	  return function (_x, _x2) {
-	    return _ref.apply(this, arguments);
-	  };
-	})());
-	
-	exports.default = router;
-	/* WEBPACK VAR INJECTION */}.call(exports, "server\\routes"))
-
-/***/ },
-/* 21 */
-/*!******************************************!*\
-  !*** ./server/utils/allowCrossDomain.js ***!
-  \******************************************/
+/*!************************************************!*\
+  !*** ./server/middlewares/allowCrossDomain.js ***!
+  \************************************************/
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1199,10 +1145,10 @@ module.exports =
 	}
 
 /***/ },
-/* 22 */
-/*!************************************************!*\
-  !*** ./server/utils/renderReactMiddleware.jsx ***!
-  \************************************************/
+/* 21 */
+/*!******************************************************!*\
+  !*** ./server/middlewares/renderReactMiddleware.jsx ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
@@ -1211,7 +1157,6 @@ module.exports =
 	    value: true
 	});
 	exports.getDefaultJSVersion = getDefaultJSVersion;
-	exports.safeJSON = safeJSON;
 	exports.default = reactRender;
 	
 	var _ejs = __webpack_require__(/*! ejs */ 28);
@@ -1225,6 +1170,8 @@ module.exports =
 	var _server = __webpack_require__(/*! react-dom/server */ 33);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
+	
+	var _secureFilters = __webpack_require__(/*! secure-filters */ 34);
 	
 	var _fs = __webpack_require__(/*! fs */ 9);
 	
@@ -1254,10 +1201,6 @@ module.exports =
 	        webpackAssets = {};
 	    }
 	    return webpackAssets[name];
-	}
-	
-	function safeJSON(obj) {
-	    return JSON.stringify(obj).replace(/<\/script/gi, '<\\/script').replace(/<!--/g, '<\\!--');
 	}
 	
 	function reactRender(middlewareConfig = {}) {
@@ -1302,12 +1245,12 @@ module.exports =
 	
 	            let finalLocals = Object.assign({
 	                html,
-	                state: safeJSON(store),
+	                state: (0, _secureFilters.jsObj)(store),
 	                appName: 'index',
 	                title: '',
 	                test: ("production") !== 'production',
 	                debug,
-	                appConfig: safeJSON(pageConfig),
+	                appConfig: (0, _secureFilters.jsObj)(pageConfig),
 	                version: {
 	                    js: jsVersion,
 	                    css: version && version.css
@@ -1324,7 +1267,65 @@ module.exports =
 	        next();
 	    };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, "server\\utils"))
+	/* WEBPACK VAR INJECTION */}.call(exports, "server\\middlewares"))
+
+/***/ },
+/* 22 */
+/*!********************************!*\
+  !*** ./server/routes/index.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _express = __webpack_require__(/*! express */ 6);
+	
+	var _fs = __webpack_require__(/*! fs */ 9);
+	
+	var _fs2 = _interopRequireDefault(_fs);
+	
+	var _index = __webpack_require__(/*! ../controllers/index */ 19);
+	
+	var _index2 = _interopRequireDefault(_index);
+	
+	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 18);
+	
+	var _Todo2 = _interopRequireDefault(_Todo);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	let router = new _express.Router();
+	
+	/**
+	 * 首页请求
+	 */
+	router.get('/', _index2.default);
+	router.get('/todo', _Todo2.default);
+	
+	/**
+	 * 静态资源
+	 */
+	let content = _fs2.default.readFileSync(__dirname + '/../../client/js/utils/sw.js', 'utf8');
+	
+	router.get('/sw.js', (() => {
+	  var _ref = _asyncToGenerator(function* (req, res) {
+	    res.set('Content-Type', 'application/javascript');
+	    res.send(content);
+	  });
+	
+	  return function (_x, _x2) {
+	    return _ref.apply(this, arguments);
+	  };
+	})());
+	
+	exports.default = router;
+	/* WEBPACK VAR INJECTION */}.call(exports, "server\\routes"))
 
 /***/ },
 /* 23 */
@@ -1425,6 +1426,15 @@ module.exports =
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
+
+/***/ },
+/* 34 */
+/*!*********************************!*\
+  !*** external "secure-filters" ***!
+  \*********************************/
+/***/ function(module, exports) {
+
+	module.exports = require("secure-filters");
 
 /***/ }
 /******/ ]);

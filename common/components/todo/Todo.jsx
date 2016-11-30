@@ -1,13 +1,14 @@
 import React, {PropTypes, Component} from 'react';
 import {observer} from 'mobx-react';
+import Base from '../../pages/Base';
 
 @observer
-class Todo extends Component {
+class Todo extends Base {
     constructor(props, context) {
         super(props, context);
 
-        this.onChange = this.onChange.bind(this);
-        this.removeTodo = this.removeTodo.bind(this);
+        // this.onChange = this.onChange.bind(this);
+        // this.removeTodo = this.removeTodo.bind(this);
     }
 
     onChange() {
@@ -16,7 +17,7 @@ class Todo extends Component {
         todo.setFinished(!todo.finished)
     }
 
-    removeTodo(e){
+    onRemoveTodo(e){
         this.props.removeTodo(e, this.props.index);
     }
 
@@ -31,7 +32,7 @@ class Todo extends Component {
                     onChange={ this.onChange }
                 />{todo.title}
                 <button onClick={ this.props.addTodo }>add</button>
-                <button onClick={ this.removeTodo }>remove</button>
+                <button onClick={ this.onRemoveTodo }>remove</button>
             </li>
         );
     }

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Base from '../Base';
 
-import TodoList from '../../components/todos/TodoList';
+import TodoList from '../../components/todo/TodoList';
 
 @observer(['store'])
-class TodosPage extends Base {
+class TodoPage extends Base {
     constructor(props, context){
         super(props, context);
     }
@@ -17,4 +17,4 @@ class TodosPage extends Base {
     }
 }
 
-export default TodosPage;
+export default TodoPage;
