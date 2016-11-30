@@ -730,7 +730,7 @@ module.exports =
 /***/ },
 /* 13 */
 /*!******************************************!*\
-  !*** ./common/pages/index/IndexPage.jsx ***!
+  !*** ./common/pages/timer/TimerPage.jsx ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -754,13 +754,13 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	let IndexPage = (_dec = (0, _mobxReact.observer)(['store']), _dec(_class = class IndexPage extends _Base2.default {
-	    constructor(...args) {
-	        var _temp;
+	let TimerPage = (_dec = (0, _mobxReact.observer)(['store']), _dec(_class = class TimerPage extends _Base2.default {
+	    constructor(props, context) {
+	        super(props, context);
+	    }
 	
-	        return _temp = super(...args), this.onReset = () => {
-	            this.props.store.resetTimer();
-	        }, _temp;
+	    componentDidMount() {
+	        this.props.store.startTimer();
 	    }
 	
 	    render() {
@@ -776,8 +776,11 @@ module.exports =
 	        );
 	    }
 	
+	    onReset() {
+	        this.props.store.resetTimer();
+	    }
 	}) || _class);
-	exports.default = IndexPage;
+	exports.default = TimerPage;
 
 /***/ },
 /* 14 */
@@ -823,6 +826,89 @@ module.exports =
 
 /***/ },
 /* 15 */
+/*!*************************************!*\
+  !*** ./common/stores/TimerStore.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _desc, _value, _class, _descriptor;
+	
+	var _mobx = __webpack_require__(/*! mobx */ 3);
+	
+	function _initDefineProp(target, property, descriptor, context) {
+	    if (!descriptor) return;
+	    Object.defineProperty(target, property, {
+	        enumerable: descriptor.enumerable,
+	        configurable: descriptor.configurable,
+	        writable: descriptor.writable,
+	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+	    });
+	}
+	
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	    var desc = {};
+	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	        desc[key] = descriptor[key];
+	    });
+	    desc.enumerable = !!desc.enumerable;
+	    desc.configurable = !!desc.configurable;
+	
+	    if ('value' in desc || desc.initializer) {
+	        desc.writable = true;
+	    }
+	
+	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	        return decorator(target, property, desc) || desc;
+	    }, desc);
+	
+	    if (context && desc.initializer !== void 0) {
+	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	        desc.initializer = undefined;
+	    }
+	
+	    if (desc.initializer === void 0) {
+	        Object['define' + 'Property'](target, property, desc);
+	        desc = null;
+	    }
+	
+	    return desc;
+	}
+	
+	function _initializerWarningHelper(descriptor, context) {
+	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+	
+	let TimerStore = (_class = class TimerStore {
+	
+	    constructor() {
+	        _initDefineProp(this, 'timer', _descriptor, this);
+	    }
+	
+	    startTimer() {
+	        setInterval((0, _mobx.action)('startTimer', () => {
+	            this.timer += 1;
+	        }), 1000);
+	    }
+	
+	    resetTimer() {
+	        this.timer = 0;
+	    }
+	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'timer', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function () {
+	        return 0;
+	    }
+	}), _applyDecoratedDescriptor(_class.prototype, 'startTimer', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'startTimer'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'resetTimer', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'resetTimer'), _class.prototype)), _class);
+	exports.default = TimerStore;
+
+/***/ },
+/* 16 */
 /*!************************************!*\
   !*** ./common/stores/TodoStore.js ***!
   \************************************/
@@ -924,87 +1010,6 @@ module.exports =
 	exports.default = TodoStore;
 
 /***/ },
-/* 16 */
-/*!********************************!*\
-  !*** ./common/stores/index.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _desc, _value, _class, _descriptor;
-	
-	var _mobx = __webpack_require__(/*! mobx */ 3);
-	
-	function _initDefineProp(target, property, descriptor, context) {
-	    if (!descriptor) return;
-	    Object.defineProperty(target, property, {
-	        enumerable: descriptor.enumerable,
-	        configurable: descriptor.configurable,
-	        writable: descriptor.writable,
-	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-	    });
-	}
-	
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	    var desc = {};
-	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	        desc[key] = descriptor[key];
-	    });
-	    desc.enumerable = !!desc.enumerable;
-	    desc.configurable = !!desc.configurable;
-	
-	    if ('value' in desc || desc.initializer) {
-	        desc.writable = true;
-	    }
-	
-	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	        return decorator(target, property, desc) || desc;
-	    }, desc);
-	
-	    if (context && desc.initializer !== void 0) {
-	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	        desc.initializer = undefined;
-	    }
-	
-	    if (desc.initializer === void 0) {
-	        Object['define' + 'Property'](target, property, desc);
-	        desc = null;
-	    }
-	
-	    return desc;
-	}
-	
-	function _initializerWarningHelper(descriptor, context) {
-	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-	}
-	
-	let IndexStore = (_class = class IndexStore {
-	
-	    constructor() {
-	        _initDefineProp(this, 'timer', _descriptor, this);
-	
-	        setInterval(() => {
-	            this.timer += 1;
-	        }, 1000);
-	    }
-	
-	    resetTimer() {
-	        this.timer = 0;
-	    }
-	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'timer', [_mobx.observable], {
-	    enumerable: true,
-	    initializer: function () {
-	        return 0;
-	    }
-	})), _class);
-	exports.default = IndexStore;
-
-/***/ },
 /* 17 */
 /*!******************************!*\
   !*** ./server/apis/index.js ***!
@@ -1033,6 +1038,43 @@ module.exports =
 
 /***/ },
 /* 18 */
+/*!*************************************!*\
+  !*** ./server/controllers/Timer.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 13);
+	
+	var _TimerPage2 = _interopRequireDefault(_TimerPage);
+	
+	var _TimerStore = __webpack_require__(/*! ../../common/stores/TimerStore */ 15);
+	
+	var _TimerStore2 = _interopRequireDefault(_TimerStore);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	module.exports = function (req, res, next) {
+	    res.renderReactHTML({
+	        component: _react2.default.createElement(_TimerPage2.default, null),
+	        store: new _TimerStore2.default(),
+	        locals: {
+	            appName: 'timer',
+	            title: 'timer page'
+	        },
+	        pageConfig: {
+	            user: 'test'
+	        }
+	    });
+	};
+
+/***/ },
+/* 19 */
 /*!************************************!*\
   !*** ./server/controllers/Todo.js ***!
   \************************************/
@@ -1048,7 +1090,7 @@ module.exports =
 	
 	var _TodoPage2 = _interopRequireDefault(_TodoPage);
 	
-	var _TodoStore = __webpack_require__(/*! ../../common/stores/TodoStore */ 15);
+	var _TodoStore = __webpack_require__(/*! ../../common/stores/TodoStore */ 16);
 	
 	var _TodoStore2 = _interopRequireDefault(_TodoStore);
 	
@@ -1078,43 +1120,6 @@ module.exports =
 	        locals: {
 	            appName: 'todo',
 	            title: 'todo page'
-	        },
-	        pageConfig: {
-	            user: 'test'
-	        }
-	    });
-	};
-
-/***/ },
-/* 19 */
-/*!*************************************!*\
-  !*** ./server/controllers/index.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _IndexPage = __webpack_require__(/*! ../../common/pages/index/IndexPage */ 13);
-	
-	var _IndexPage2 = _interopRequireDefault(_IndexPage);
-	
-	var _index = __webpack_require__(/*! ../../common/stores/index */ 16);
-	
-	var _index2 = _interopRequireDefault(_index);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	module.exports = function (req, res, next) {
-	    res.renderReactHTML({
-	        component: _react2.default.createElement(_IndexPage2.default, null),
-	        store: new _index2.default(),
-	        locals: {
-	            appName: 'index',
-	            title: 'index page'
 	        },
 	        pageConfig: {
 	            user: 'test'
@@ -1288,11 +1293,11 @@ module.exports =
 	
 	var _fs2 = _interopRequireDefault(_fs);
 	
-	var _index = __webpack_require__(/*! ../controllers/index */ 19);
+	var _Timer = __webpack_require__(/*! ../controllers/Timer */ 18);
 	
-	var _index2 = _interopRequireDefault(_index);
+	var _Timer2 = _interopRequireDefault(_Timer);
 	
-	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 18);
+	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 19);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -1305,7 +1310,7 @@ module.exports =
 	/**
 	 * 首页请求
 	 */
-	router.get('/', _index2.default);
+	router.get('/', _Timer2.default);
 	router.get('/todo', _Todo2.default);
 	
 	/**

@@ -1,6 +1,10 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'mobx-react';
+import {
+    render
+} from 'react-dom';
+import {
+    Provider
+} from 'mobx-react';
 import fastclick from 'fastclick';
 
 import App from '../../../common/App.jsx';
@@ -16,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 fastclick.attach(document.body);
 
 
-export default function createRender(middlewareConfig = {}){
+export default function createRender(middlewareConfig = {}) {
     let page = document.getElementById('page');
     let onRenderCompleted = typeof middlewareConfig.onRenderCompleted === 'function' && middlewareConfig.onRenderCompleted;
 
@@ -31,12 +35,16 @@ export default function createRender(middlewareConfig = {}){
         component = null,
         Store = null
     }) {
-        let store = Store ? Store.fromJS(window.__INITIAL_STATE__) : {};
+        let store = Store ? (
+            Store.fromJS ?
+            Store.fromJS(window.__INITIAL_STATE__) :
+            new Store(window.__INITIAL_STATE__)
+        ) : {};
 
         render((
             <Provider store={ store }>
                 <App appConfig={ window.__APP_CONFIG__ }>
-                    { component }
+                    { component } 
                 </App>
             </Provider>
         ), page, onRenderCompleted);

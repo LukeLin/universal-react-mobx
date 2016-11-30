@@ -1,15 +1,15 @@
 import React from 'react';
-import Page from '../../common/pages/index/IndexPage';
-import IndexStore from '../../common/stores/index';
+import Page from '../../common/pages/timer/TimerPage.jsx';
+import Store from '../../common/stores/TimerStore';
 
 
 module.exports = function (req, res, next) {
     res.renderReactHTML({
         component: <Page/>,
-        store: new IndexStore(),
+        store: new Store(),
         locals: {
-            appName: 'index',
-            title: 'index page'
+            appName: 'timer',
+            title: 'timer page'
         },
         pageConfig: {
             user: 'test'

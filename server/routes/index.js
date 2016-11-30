@@ -3,14 +3,14 @@ import fs from 'fs';
 
 let router = new Router();
 
-import IndexPage from '../controllers/index';
+import Timer from '../controllers/Timer';
 import Todo from '../controllers/Todo';
 
 
 /**
  * 首页请求
  */
-router.get('/', IndexPage);
+router.get('/', Timer);
 router.get('/todo', Todo);
 
 

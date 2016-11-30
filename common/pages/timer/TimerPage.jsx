@@ -3,7 +3,15 @@ import { observer } from 'mobx-react';
 import Base from '../Base';
 
 @observer(['store'])
-class IndexPage extends Base {
+class TimerPage extends Base {
+    constructor(props, context){
+        super(props, context);
+    }
+
+    componentDidMount(){
+        this.props.store.startTimer();
+    }
+
     render() {
         return (
             <div>
@@ -14,9 +22,9 @@ class IndexPage extends Base {
         );
     }
 
-    onReset = () => {
+    onReset(){
         this.props.store.resetTimer();
     }
 }
 
-export default IndexPage;
+export default TimerPage;
