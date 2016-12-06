@@ -13,7 +13,7 @@ import allowCrossDomain from './middlewares/allowCrossDomain'
 import reactRender from './middlewares/renderReactMiddleware';
 import helmet from 'helmet';
 // import socket from './sockets/socket';
-// import spaRenderMatch from './utils/spaRenderMatch';
+import spaRenderMatch from './middlewares/spaRenderMatch.jsx';
 
 let app = express();
 
@@ -67,7 +67,7 @@ app.use(reactRender());
 
 app.use('/api', apis);
 app.use('/', routes);
-// app.use('*', spaRenderMatch);
+app.use('*', spaRenderMatch);
 
 // error handlers
 // no stacktraces leaked to user

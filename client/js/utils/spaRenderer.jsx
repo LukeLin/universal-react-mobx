@@ -7,7 +7,7 @@ import configureStore from '../../../common/store/spaStores';
 import App from '../../../common/App';
 
 
-const store = configureStore(window.__INITIAL_STATE__, browserHistory);
+const store = configureStore(window.__INITIAL_STATE__);
 const routes = createRoutes(store);
 
 function onUpdate(){
@@ -16,7 +16,7 @@ function onUpdate(){
 
 match({ history: browserHistory, routes }, (error, redirectLocation, renderProps) => {
     render(
-        <Provider store={store}>
+        <Provider { ...store }>
             <App appConfig={ window.__APP_CONFIG__ }>
                 <Router history={browserHistory} { ...renderProps } onUpdate={ onUpdate }/>
             </App>

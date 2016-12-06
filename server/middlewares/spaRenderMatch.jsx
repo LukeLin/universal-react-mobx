@@ -3,8 +3,8 @@ import {renderToString} from 'react-dom/server';
 import {createMemoryHistory, match, RouterContext} from 'react-router';
 import { Provider, useStaticRendering } from 'mobx-react';
 import createRoutes from '../../common/routes';
-import configureStore from '../../common/store/spaStores';
-import preRenderMiddleware from './preRender';
+import configureStore from '../../common/stores/spaStores.js';
+import preRenderMiddleware from '../utils/preRender';
 import ejs from 'ejs';
 import config from '../config/config.json';
 import { getDefaultJSVersion } from './renderReactMiddleware';
@@ -18,8 +18,10 @@ const defaultTemplate = fs.readFileSync(__dirname + '/../views/index.html', 'utf
 export default function renderMatch(req, res) {
     const history = createMemoryHistory();
     const store = configureStore({
-        user: {}
-    }, history);
+        common: {
+            user: {}
+        }
+    });
     let appConfig = {
         time: Date.now()
     };
@@ -48,7 +50,7 @@ export default function renderMatch(req, res) {
                 await preRenderMiddleware(store.dispatch, props, appConfig, req);
 
                 componentHTML = renderToString(
-                    <Provider store={store}>
+                    <Provider { ...store }>
                         <App appConfig={ appConfig }>
                             <RouterContext {...props} />
                         </App>
