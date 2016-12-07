@@ -17,7 +17,7 @@ const defaultTemplate = fs.readFileSync(__dirname + '/../views/index.html', 'utf
 
 export default function renderMatch(req, res) {
     const history = createMemoryHistory();
-    const store = configureStore({
+    const stores = configureStore({
         common: {
             user: {}
         }
@@ -25,7 +25,7 @@ export default function renderMatch(req, res) {
     let appConfig = {
         time: Date.now()
     };
-    const routes = createRoutes(store, appConfig);
+    const routes = createRoutes(stores, appConfig);
 
     match({routes, location: req.originalUrl}, async function (err, redirect, props){
         if (err) {
@@ -42,22 +42,19 @@ export default function renderMatch(req, res) {
             } else {
                 jsVersion = getDefaultJSVersion('app');
             }
-            let initialState = {};
             let componentHTML = '';
             let errorMsg = '';
 
             try {
-                await preRenderMiddleware(store.dispatch, props, appConfig, req);
+                await preRenderMiddleware(stores, props, appConfig, req);
 
                 componentHTML = renderToString(
-                    <Provider { ...store }>
+                    <Provider { ...stores }>
                         <App appConfig={ appConfig }>
                             <RouterContext {...props} />
                         </App>
                     </Provider>
                 );
-
-                initialState = store.getState();
 
             } catch(ex){
                 errorMsg = ex.stack;
@@ -67,9 +64,9 @@ export default function renderMatch(req, res) {
             let pageStr = ejs.render(defaultTemplate, Object.assign({
                 errorMsg,
                 html: componentHTML,
-                state: safeJSON(initialState),
+                state: safeJSON(stores),
                 appName: 'app',
-                title: '游戏中心',
+                title: '',
                 test: process.env.NODE_ENV !== 'production',
                 debug: debug,
                 appConfig: safeJSON(appConfig),

@@ -1,11 +1,11 @@
-function preRender(dispatch, { components, location, params }, appConfig = {}, req) {
+function preRender(stores, { components, location, params }, appConfig = {}, req) {
     const promises = components.map((current) => {
         if(!current) return null;
 
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         const pageConfig = component.OriginalPage && component.OriginalPage.pageConfig;
 
-        return component.fetchData ? component.fetchData({ dispatch, location, params, appConfig, pageConfig }, req) : null;
+        return component.fetchData ? component.fetchData({ stores, location, params, appConfig, pageConfig }, req) : null;
     });
 
     let lastComponent = components[components.length - 1].WrappedComponent ? components[components.length - 1].WrappedComponent : components[components.length - 1];

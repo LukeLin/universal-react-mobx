@@ -3,12 +3,12 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { match, Router, browserHistory } from 'react-router';
 import createRoutes from '../../../common/routes';
-import configureStore from '../../../common/store/spaStores';
+import configureStore from '../../../common/stores/spaStores';
 import App from '../../../common/App';
 
 
-const store = configureStore(window.__INITIAL_STATE__);
-const routes = createRoutes(store);
+export const stores = configureStore(window.__INITIAL_STATE__);
+const routes = createRoutes(stores);
 
 function onUpdate(){
     window.scrollTo(0, 0);
@@ -16,7 +16,7 @@ function onUpdate(){
 
 match({ history: browserHistory, routes }, (error, redirectLocation, renderProps) => {
     render(
-        <Provider { ...store }>
+        <Provider { ...stores }>
             <App appConfig={ window.__APP_CONFIG__ }>
                 <Router history={browserHistory} { ...renderProps } onUpdate={ onUpdate }/>
             </App>

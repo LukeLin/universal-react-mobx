@@ -11,10 +11,26 @@ if (typeof require.ensure !== 'function') {
     };
 }
 
+function onChange(prevState, nextState, replace, cb){
+    let lastRoute = nextState.routes[nextState.routes.length - 1];
+
+    if(lastRoute.component) {
+        let component = lastRoute.component;
+        let location = nextState.location;
+        let pageComponent = component.OriginalPage ? component.OriginalPage : component;
+
+        Object.assign(window.__APP_CONFIG__, {
+            pageId: location.query.pageId || (pageComponent.pageConfig && pageComponent.pageConfig.pageId)
+        });
+    }
+
+    cb();
+}
+
 
 export default (store) => {
     return (
-        <Route path="/" component={App}>
+        <Route path="/" component={App} onChange={ onChange }>
             <IndexRoute getComponent={(nextState, cb) => {
                 require.ensure([], require => {
                     cb(null, require('./pages/App/Vote').default);

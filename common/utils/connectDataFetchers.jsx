@@ -1,7 +1,10 @@
 import React, {
     PropTypes
 } from 'react';
+import { inject, observer } from 'mobx-react';
+
 import Base from '../pages/Base';
+import { stores } from '../stores/spaStores.js';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
 if (process.browser) {
@@ -9,7 +12,7 @@ if (process.browser) {
 }
 
 // todo
-export default function connectDataFetchers(actionCreators, cache) {
+export default function connectDataFetchers(storeKeys = [], cache) {
     return function (Page) {
         if (process.browser) {
             if (!Page.pageConfig) {
@@ -21,7 +24,6 @@ export default function connectDataFetchers(actionCreators, cache) {
 
         class DataFetchersWrapper extends Base {
             static propTypes = {
-                dispatch: PropTypes.func.isRequired,
                 params: PropTypes.object,
                 location: PropTypes.shape({
                     pathname: PropTypes.string.required,
@@ -37,21 +39,21 @@ export default function connectDataFetchers(actionCreators, cache) {
             static OriginalPage = Page;
 
             static fetchData({
-                dispatch,
                 location,
                 params,
                 appConfig,
                 pageConfig
             }, req) {
+                console.log(stores);
                 return Promise.all(
-                    actionCreators.map(actionCreator => dispatch(actionCreator({
-                        dispatch,
-                        location,
-                        params,
-                        appConfig,
-                        pageConfig
-                    }, req)))
-                );
+                    storeKeys.map(storeKey => {
+                        return stores[storeKey] && stores[storeKey].loadData({
+                            location,
+                            params,
+                            appConfig,
+                            pageConfig
+                        })
+                    }, req));
             }
 
             shouldComponentUpdate(nextProps) {
@@ -93,7 +95,6 @@ export default function connectDataFetchers(actionCreators, cache) {
 
             _fetchDataOnClient() {
                 this.constructor.fetchData({
-                    dispatch: this.props.dispatch,
                     params: this.props.params,
                     location: this.props.location,
                     appConfig: this.context.$appConfig

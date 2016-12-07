@@ -6,7 +6,7 @@ import connectDataFetchers from '../../utils/connectDataFetchers';
 
 
 @observer(['commonStore'])
-@connectDataFetchers()
+@connectDataFetchers(['VoteStore'])
 class Vote extends Component {
     static pageConfig = {
         pageId: 'Vote'

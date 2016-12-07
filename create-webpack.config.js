@@ -82,7 +82,7 @@ module.exports = function (DEBUG) {
     function getPagesNames(dirPath) {
         let filesNames = fs.readdirSync(dirPath);
         let entries = {
-            // app: __dirname + '/client/js/utils/universalRender.js'
+            app: __dirname + '/client/js/utils/spaRenderer.jsx'
         };
 
         for (let fileName of filesNames) {
@@ -109,29 +109,7 @@ module.exports = function (DEBUG) {
             // "helpers": false,
             "polyfill": false,
             "regenerator": true
-        }],
-
-        // exclude commonjs for webpack 2.0 tree shaking optimization
-        // "transform-es2015-modules-commonjs",
-        // 'transform-es2015-template-literals',
-        // 'transform-es2015-literals',
-        // 'transform-es2015-function-name',
-        // 'transform-es2015-arrow-functions',
-        // 'transform-es2015-block-scoped-functions',
-        // 'transform-es2015-classes',
-        // 'transform-es2015-object-super',
-        // 'transform-es2015-shorthand-properties',
-        // 'transform-es2015-computed-properties',
-        // 'transform-es2015-for-of',
-        // 'transform-es2015-sticky-regex',
-        // 'transform-es2015-unicode-regex',
-        // 'check-es2015-constants',
-        // 'transform-es2015-spread',
-        // 'transform-es2015-parameters',
-        // 'transform-es2015-destructuring',
-        // 'transform-es2015-block-scoping',
-        // 'transform-es2015-typeof-symbol',
-        // ['transform-regenerator', { async: false, asyncGenerators: false }]
+        }]
     ];
     if (!DEBUG) {
         babelPlugins.push(

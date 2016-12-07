@@ -5,7 +5,7 @@ import { useStrict } from 'mobx';
 useStrict(true);
 
 
-if(process.browser && process.env.NODE_ENV !== 'production'){
+if(process.env.NODE_ENV !== 'production' && process.browser){
     var DevTools = require('mobx-react-devtools').default;
 }
 
