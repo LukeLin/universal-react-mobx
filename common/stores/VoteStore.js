@@ -7,21 +7,17 @@ import {
 import fetchList from '../fetchList';
 
 export default class VoteStore {
-    @observable data = {};
+    @observable message = '';
 
     constructor(){
 
     }
 
     @action
-    async loadData(opts, req){
-        try {
-            let resp = await fetchList.getVote(opts, req);
-
-            runInAction("update state after fetching data", () => {
-                this.data.replace(resp.data);
-            })
-        } catch(ex){}
+    loadData(opts, req){
+        return fetchList.getVote(opts, req).then(action('update state after fetching data', (resp) => {
+            this.message = resp.data.message;
+        }))
     }
 }
 

@@ -28,7 +28,7 @@ function onChange(prevState, nextState, replace, cb){
 }
 
 
-export default (store) => {
+export default (stores) => {
     return (
         <Route path="/" component={App} onChange={ onChange }>
             <IndexRoute getComponent={(nextState, cb) => {

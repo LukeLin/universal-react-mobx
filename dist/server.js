@@ -51,7 +51,7 @@ module.exports =
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var _http = __webpack_require__(/*! http */ 40);
+	var _http = __webpack_require__(/*! http */ 42);
 	
 	var _http2 = _interopRequireDefault(_http);
 	
@@ -59,27 +59,27 @@ module.exports =
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(/*! compression */ 35);
+	var _compression = __webpack_require__(/*! compression */ 37);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _morgan = __webpack_require__(/*! morgan */ 41);
+	var _morgan = __webpack_require__(/*! morgan */ 43);
 	
 	var _morgan2 = _interopRequireDefault(_morgan);
 	
-	var _cookieParser = __webpack_require__(/*! cookie-parser */ 36);
+	var _cookieParser = __webpack_require__(/*! cookie-parser */ 38);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _bodyParser = __webpack_require__(/*! body-parser */ 34);
+	var _bodyParser = __webpack_require__(/*! body-parser */ 36);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _expressSession = __webpack_require__(/*! express-session */ 38);
+	var _expressSession = __webpack_require__(/*! express-session */ 40);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _csurf = __webpack_require__(/*! csurf */ 37);
+	var _csurf = __webpack_require__(/*! csurf */ 39);
 	
 	var _csurf2 = _interopRequireDefault(_csurf);
 	
@@ -87,15 +87,15 @@ module.exports =
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _index = __webpack_require__(/*! ./routes/index */ 32);
+	var _index = __webpack_require__(/*! ./routes/index */ 34);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(/*! ./apis/index */ 27);
+	var _index3 = __webpack_require__(/*! ./apis/index */ 29);
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
-	var _allowCrossDomain = __webpack_require__(/*! ./middlewares/allowCrossDomain */ 30);
+	var _allowCrossDomain = __webpack_require__(/*! ./middlewares/allowCrossDomain */ 32);
 	
 	var _allowCrossDomain2 = _interopRequireDefault(_allowCrossDomain);
 	
@@ -103,11 +103,11 @@ module.exports =
 	
 	var _renderReactMiddleware2 = _interopRequireDefault(_renderReactMiddleware);
 	
-	var _helmet = __webpack_require__(/*! helmet */ 39);
+	var _helmet = __webpack_require__(/*! helmet */ 41);
 	
 	var _helmet2 = _interopRequireDefault(_helmet);
 	
-	var _spaRenderMatch = __webpack_require__(/*! ./middlewares/spaRenderMatch.jsx */ 31);
+	var _spaRenderMatch = __webpack_require__(/*! ./middlewares/spaRenderMatch.jsx */ 33);
 	
 	var _spaRenderMatch2 = _interopRequireDefault(_spaRenderMatch);
 	
@@ -1078,6 +1078,32 @@ module.exports =
 
 /***/ },
 /* 20 */
+/*!*****************************************!*\
+  !*** ./common/fetchList/serverFetch.js ***!
+  \*****************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    getVote(opts, req) {
+	        return new Promise((resolve, reject) => {
+	            setTimeout(() => {
+	                resolve({
+	                    data: {
+	                        message: 123
+	                    }
+	                });
+	            }, 500);
+	        });
+	    }
+	};
+
+/***/ },
+/* 21 */
 /*!************************************!*\
   !*** ./common/pages/App/About.jsx ***!
   \************************************/
@@ -1123,7 +1149,7 @@ module.exports =
 	exports.default = About;
 
 /***/ },
-/* 21 */
+/* 22 */
 /*!**********************************!*\
   !*** ./common/pages/App/App.jsx ***!
   \**********************************/
@@ -1152,7 +1178,7 @@ module.exports =
 	exports.default = App;
 
 /***/ },
-/* 22 */
+/* 23 */
 /*!******************************************!*\
   !*** ./common/pages/timer/TimerPage.jsx ***!
   \******************************************/
@@ -1207,7 +1233,7 @@ module.exports =
 	exports.default = TimerPage;
 
 /***/ },
-/* 23 */
+/* 24 */
 /*!****************************************!*\
   !*** ./common/pages/todo/TodoPage.jsx ***!
   \****************************************/
@@ -1249,7 +1275,7 @@ module.exports =
 	exports.default = TodoPage;
 
 /***/ },
-/* 24 */
+/* 25 */
 /*!**************************!*\
   !*** ./common/routes.js ***!
   \**************************/
@@ -1267,11 +1293,11 @@ module.exports =
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 9);
 	
-	var _App = __webpack_require__(/*! ./pages/App/App */ 21);
+	var _App = __webpack_require__(/*! ./pages/App/App */ 22);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _About = __webpack_require__(/*! ./pages/App/About */ 20);
+	var _About = __webpack_require__(/*! ./pages/App/About */ 21);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -1321,7 +1347,7 @@ module.exports =
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /*!**************************************!*\
   !*** ./common/stores/CommonStore.js ***!
   \**************************************/
@@ -1345,7 +1371,103 @@ module.exports =
 	exports.default = CommonStore;
 
 /***/ },
-/* 26 */
+/* 27 */
+/*!************************************!*\
+  !*** ./common/stores/VoteStore.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+	
+	var _desc, _value, _class, _descriptor;
+	
+	var _mobx = __webpack_require__(/*! mobx */ 3);
+	
+	var _fetchList = __webpack_require__(/*! ../fetchList */ 20);
+	
+	var _fetchList2 = _interopRequireDefault(_fetchList);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _initDefineProp(target, property, descriptor, context) {
+	    if (!descriptor) return;
+	    Object.defineProperty(target, property, {
+	        enumerable: descriptor.enumerable,
+	        configurable: descriptor.configurable,
+	        writable: descriptor.writable,
+	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+	    });
+	}
+	
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	    var desc = {};
+	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	        desc[key] = descriptor[key];
+	    });
+	    desc.enumerable = !!desc.enumerable;
+	    desc.configurable = !!desc.configurable;
+	
+	    if ('value' in desc || desc.initializer) {
+	        desc.writable = true;
+	    }
+	
+	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	        return decorator(target, property, desc) || desc;
+	    }, desc);
+	
+	    if (context && desc.initializer !== void 0) {
+	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	        desc.initializer = undefined;
+	    }
+	
+	    if (desc.initializer === void 0) {
+	        Object['define' + 'Property'](target, property, desc);
+	        desc = null;
+	    }
+	
+	    return desc;
+	}
+	
+	function _initializerWarningHelper(descriptor, context) {
+	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+	
+	let VoteStore = (_class = class VoteStore {
+	
+	    constructor() {
+	        _initDefineProp(this, 'data', _descriptor, this);
+	    }
+	
+	    loadData(opts, req) {
+	        var _this = this;
+	
+	        return _asyncToGenerator(function* () {
+	            try {
+	                let resp = yield _fetchList2.default.getVote(opts, req);
+	
+	                (0, _mobx.runInAction)("update state after fetching data", function () {
+	                    _this.data.replace(resp.data);
+	                });
+	            } catch (ex) {}
+	        })();
+	    }
+	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'data', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function () {
+	        return {};
+	    }
+	}), _applyDecoratedDescriptor(_class.prototype, 'loadData', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'loadData'), _class.prototype)), _class);
+	exports.default = VoteStore;
+
+/***/ },
+/* 28 */
 /*!************************************!*\
   !*** ./common/stores/spaStores.js ***!
   \************************************/
@@ -1359,7 +1481,7 @@ module.exports =
 	exports.stores = undefined;
 	exports.default = configureStore;
 	
-	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 25);
+	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 26);
 	
 	var _CommonStore2 = _interopRequireDefault(_CommonStore);
 	
@@ -1371,20 +1493,25 @@ module.exports =
 	
 	var _TodoStore2 = _interopRequireDefault(_TodoStore);
 	
+	var _VoteStore = __webpack_require__(/*! ./VoteStore */ 27);
+	
+	var _VoteStore2 = _interopRequireDefault(_VoteStore);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function configureStore(state = {}) {
 	    return {
 	        commonStore: new _CommonStore2.default(state.common),
 	        timerStore: new _TimerStore2.default(state.timer),
-	        todoStore: new _TodoStore2.default(state.todo)
+	        todoStore: new _TodoStore2.default(state.todo),
+	        VoteStore: new _VoteStore2.default(state.vote)
 	    };
 	}
 	
-	let stores = exports.stores = ({"NODE_ENV":"production"}).BROWSER ? stores(window.__INITIAL_STATE__) : {};
+	let stores = exports.stores = process.browser ? configureStore(window.__INITIAL_STATE__) : {};
 
 /***/ },
-/* 27 */
+/* 29 */
 /*!******************************!*\
   !*** ./server/apis/index.js ***!
   \******************************/
@@ -1411,7 +1538,7 @@ module.exports =
 	exports.default = router;
 
 /***/ },
-/* 28 */
+/* 30 */
 /*!*************************************!*\
   !*** ./server/controllers/Timer.js ***!
   \*************************************/
@@ -1423,7 +1550,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 22);
+	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 23);
 	
 	var _TimerPage2 = _interopRequireDefault(_TimerPage);
 	
@@ -1448,7 +1575,7 @@ module.exports =
 	};
 
 /***/ },
-/* 29 */
+/* 31 */
 /*!************************************!*\
   !*** ./server/controllers/Todo.js ***!
   \************************************/
@@ -1460,7 +1587,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 23);
+	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 24);
 	
 	var _TodoPage2 = _interopRequireDefault(_TodoPage);
 	
@@ -1502,7 +1629,7 @@ module.exports =
 	};
 
 /***/ },
-/* 30 */
+/* 32 */
 /*!************************************************!*\
   !*** ./server/middlewares/allowCrossDomain.js ***!
   \************************************************/
@@ -1524,7 +1651,7 @@ module.exports =
 	}
 
 /***/ },
-/* 31 */
+/* 33 */
 /*!***********************************************!*\
   !*** ./server/middlewares/spaRenderMatch.jsx ***!
   \***********************************************/
@@ -1547,15 +1674,15 @@ module.exports =
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _routes = __webpack_require__(/*! ../../common/routes */ 24);
+	var _routes = __webpack_require__(/*! ../../common/routes */ 25);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 26);
+	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 28);
 	
 	var _spaStores2 = _interopRequireDefault(_spaStores);
 	
-	var _preRender = __webpack_require__(/*! ../utils/preRender */ 33);
+	var _preRender = __webpack_require__(/*! ../utils/preRender */ 35);
 	
 	var _preRender2 = _interopRequireDefault(_preRender);
 	
@@ -1664,7 +1791,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\middlewares"))
 
 /***/ },
-/* 32 */
+/* 34 */
 /*!********************************!*\
   !*** ./server/routes/index.js ***!
   \********************************/
@@ -1682,11 +1809,11 @@ module.exports =
 	
 	var _fs2 = _interopRequireDefault(_fs);
 	
-	var _Timer = __webpack_require__(/*! ../controllers/Timer */ 28);
+	var _Timer = __webpack_require__(/*! ../controllers/Timer */ 30);
 	
 	var _Timer2 = _interopRequireDefault(_Timer);
 	
-	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 29);
+	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 31);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -1722,7 +1849,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\routes"))
 
 /***/ },
-/* 33 */
+/* 35 */
 /*!***********************************!*\
   !*** ./server/utils/preRender.js ***!
   \***********************************/
@@ -1752,7 +1879,7 @@ module.exports =
 	exports.default = preRender;
 
 /***/ },
-/* 34 */
+/* 36 */
 /*!******************************!*\
   !*** external "body-parser" ***!
   \******************************/
@@ -1761,7 +1888,7 @@ module.exports =
 	module.exports = require("body-parser");
 
 /***/ },
-/* 35 */
+/* 37 */
 /*!******************************!*\
   !*** external "compression" ***!
   \******************************/
@@ -1770,7 +1897,7 @@ module.exports =
 	module.exports = require("compression");
 
 /***/ },
-/* 36 */
+/* 38 */
 /*!********************************!*\
   !*** external "cookie-parser" ***!
   \********************************/
@@ -1779,7 +1906,7 @@ module.exports =
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 37 */
+/* 39 */
 /*!************************!*\
   !*** external "csurf" ***!
   \************************/
@@ -1788,7 +1915,7 @@ module.exports =
 	module.exports = require("csurf");
 
 /***/ },
-/* 38 */
+/* 40 */
 /*!**********************************!*\
   !*** external "express-session" ***!
   \**********************************/
@@ -1797,7 +1924,7 @@ module.exports =
 	module.exports = require("express-session");
 
 /***/ },
-/* 39 */
+/* 41 */
 /*!*************************!*\
   !*** external "helmet" ***!
   \*************************/
@@ -1806,7 +1933,7 @@ module.exports =
 	module.exports = require("helmet");
 
 /***/ },
-/* 40 */
+/* 42 */
 /*!***********************!*\
   !*** external "http" ***!
   \***********************/
@@ -1815,7 +1942,7 @@ module.exports =
 	module.exports = require("http");
 
 /***/ },
-/* 41 */
+/* 43 */
 /*!*************************!*\
   !*** external "morgan" ***!
   \*************************/

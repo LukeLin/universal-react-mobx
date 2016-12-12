@@ -3,11 +3,11 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { match, Router, browserHistory } from 'react-router';
 import createRoutes from '../../../common/routes';
-import configureStore from '../../../common/stores/spaStores';
+import { stores } from '../../../common/stores/spaStores';
 import App from '../../../common/App';
 
 
-export const stores = configureStore(window.__INITIAL_STATE__);
+// export const stores = configureStore(window.__INITIAL_STATE__);
 const routes = createRoutes(stores);
 
 function onUpdate(){
