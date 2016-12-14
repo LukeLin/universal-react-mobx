@@ -2,6 +2,7 @@ import React, {
     PropTypes
 } from 'react';
 import { inject, observer } from 'mobx-react';
+import { action } from 'mobx';
 
 import Base from '../pages/Base';
 import { stores } from '../stores/spaStores.js';
@@ -22,6 +23,7 @@ export default function connectDataFetchers(storeKeys = [], cache) {
             }
         }
 
+        @observer
         class DataFetchersWrapper extends Base {
             static propTypes = {
                 params: PropTypes.object,
@@ -38,6 +40,7 @@ export default function connectDataFetchers(storeKeys = [], cache) {
 
             static OriginalPage = Page;
 
+            @action
             static fetchData({
                 location,
                 params,

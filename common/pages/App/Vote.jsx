@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import connectDataFetchers from '../../utils/connectDataFetchers';
 
 
-@observer(['commonStore'])
+@observer(['VoteStore'])
 @connectDataFetchers(['VoteStore'])
 class Vote extends Component {
     static pageConfig = {
@@ -17,7 +17,7 @@ class Vote extends Component {
                 this is vote
                 <Link to="/about?debug=test">about</Link>
                 <Link to="/test">test</Link>
-                message: { this.props.message }
+                message: { this.props.VoteStore.message }
             </div>
         );
     }
