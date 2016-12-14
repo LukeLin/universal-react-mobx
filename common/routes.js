@@ -31,16 +31,8 @@ function onChange(prevState, nextState, replace, cb){
 export default (stores) => {
     return (
         <Route path="/" component={App} onChange={ onChange }>
-            <IndexRoute getComponent={(nextState, cb) => {
-                require.ensure([], require => {
-                    cb(null, require('./pages/App/Vote').default);
-                }, 'Vote');
-            }}/>
-            <Route path="vote" getComponent={(nextState, cb) => {
-                require.ensure([], require => {
-                    cb(null, require('./pages/App/Vote').default);
-                }, 'Vote');
-            }}/>
+            <IndexRoute component={ require('./pages/App/Vote').default }/>
+            <Route path="vote" component={ require('./pages/App/Vote').default }/>
             <Route path="about" component={About} />
         </Route>
     );

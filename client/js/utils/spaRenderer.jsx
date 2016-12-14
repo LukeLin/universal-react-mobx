@@ -10,6 +10,8 @@ import App from '../../../common/App';
 // export const stores = configureStore(window.__INITIAL_STATE__);
 const routes = createRoutes(stores);
 
+window.stores = stores;
+
 function onUpdate(){
     window.scrollTo(0, 0);
 }

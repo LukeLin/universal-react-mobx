@@ -2,6 +2,7 @@ import React, {
     PropTypes
 } from 'react';
 import { inject, observer } from 'mobx-react';
+// import { action } from 'mobx';
 
 import Base from '../pages/Base';
 import { stores } from '../stores/spaStores.js';

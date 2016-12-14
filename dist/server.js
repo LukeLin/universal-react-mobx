@@ -51,63 +51,63 @@ module.exports =
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var _http = __webpack_require__(/*! http */ 42);
+	var _http = __webpack_require__(/*! http */ 44);
 	
 	var _http2 = _interopRequireDefault(_http);
 	
-	var _express = __webpack_require__(/*! express */ 7);
+	var _express = __webpack_require__(/*! express */ 8);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(/*! compression */ 37);
+	var _compression = __webpack_require__(/*! compression */ 39);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _morgan = __webpack_require__(/*! morgan */ 43);
+	var _morgan = __webpack_require__(/*! morgan */ 45);
 	
 	var _morgan2 = _interopRequireDefault(_morgan);
 	
-	var _cookieParser = __webpack_require__(/*! cookie-parser */ 38);
+	var _cookieParser = __webpack_require__(/*! cookie-parser */ 40);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _bodyParser = __webpack_require__(/*! body-parser */ 36);
+	var _bodyParser = __webpack_require__(/*! body-parser */ 38);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _expressSession = __webpack_require__(/*! express-session */ 40);
+	var _expressSession = __webpack_require__(/*! express-session */ 42);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _csurf = __webpack_require__(/*! csurf */ 39);
+	var _csurf = __webpack_require__(/*! csurf */ 41);
 	
 	var _csurf2 = _interopRequireDefault(_csurf);
 	
-	var _config = __webpack_require__(/*! ./config/config.json */ 6);
+	var _config = __webpack_require__(/*! ./config/config.json */ 7);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _index = __webpack_require__(/*! ./routes/index */ 34);
+	var _index = __webpack_require__(/*! ./routes/index */ 36);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(/*! ./apis/index */ 29);
+	var _index3 = __webpack_require__(/*! ./apis/index */ 31);
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
-	var _allowCrossDomain = __webpack_require__(/*! ./middlewares/allowCrossDomain */ 32);
+	var _allowCrossDomain = __webpack_require__(/*! ./middlewares/allowCrossDomain */ 34);
 	
 	var _allowCrossDomain2 = _interopRequireDefault(_allowCrossDomain);
 	
-	var _renderReactMiddleware = __webpack_require__(/*! ./middlewares/renderReactMiddleware */ 13);
+	var _renderReactMiddleware = __webpack_require__(/*! ./middlewares/renderReactMiddleware */ 15);
 	
 	var _renderReactMiddleware2 = _interopRequireDefault(_renderReactMiddleware);
 	
-	var _helmet = __webpack_require__(/*! helmet */ 41);
+	var _helmet = __webpack_require__(/*! helmet */ 43);
 	
 	var _helmet2 = _interopRequireDefault(_helmet);
 	
-	var _spaRenderMatch = __webpack_require__(/*! ./middlewares/spaRenderMatch.jsx */ 33);
+	var _spaRenderMatch = __webpack_require__(/*! ./middlewares/spaRenderMatch.jsx */ 35);
 	
 	var _spaRenderMatch2 = _interopRequireDefault(_spaRenderMatch);
 	
@@ -251,7 +251,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _events = __webpack_require__(/*! events */ 15);
+	var _events = __webpack_require__(/*! events */ 17);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -349,6 +349,15 @@ module.exports =
 
 /***/ },
 /* 5 */
+/*!*******************************!*\
+  !*** external "react-router" ***!
+  \*******************************/
+/***/ function(module, exports) {
+
+	module.exports = require("react-router");
+
+/***/ },
+/* 6 */
 /*!************************************!*\
   !*** ./common/models/TodoModel.js ***!
   \************************************/
@@ -440,7 +449,7 @@ module.exports =
 	exports.default = TodoModel;
 
 /***/ },
-/* 6 */
+/* 7 */
 /*!***********************************!*\
   !*** ./server/config/config.json ***!
   \***********************************/
@@ -458,7 +467,7 @@ module.exports =
 	};
 
 /***/ },
-/* 7 */
+/* 8 */
 /*!**************************!*\
   !*** external "express" ***!
   \**************************/
@@ -467,22 +476,13 @@ module.exports =
 	module.exports = require("express");
 
 /***/ },
-/* 8 */
+/* 9 */
 /*!*********************!*\
   !*** external "fs" ***!
   \*********************/
 /***/ function(module, exports) {
 
 	module.exports = require("fs");
-
-/***/ },
-/* 9 */
-/*!*******************************!*\
-  !*** external "react-router" ***!
-  \*******************************/
-/***/ function(module, exports) {
-
-	module.exports = require("react-router");
 
 /***/ },
 /* 10 */
@@ -501,7 +501,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _events = __webpack_require__(/*! events */ 15);
+	var _events = __webpack_require__(/*! events */ 17);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -572,6 +572,60 @@ module.exports =
 
 /***/ },
 /* 11 */
+/*!***********************************!*\
+  !*** ./common/pages/App/Vote.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _dec, _dec2, _class, _class2, _temp;
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 5);
+	
+	var _connectDataFetchers = __webpack_require__(/*! ../../utils/connectDataFetchers */ 30);
+	
+	var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	let Vote = (_dec = (0, _mobxReact.observer)(['commonStore', 'VoteStore']), _dec2 = (0, _connectDataFetchers2.default)(['VoteStore']), _dec(_class = _dec2(_class = (_temp = _class2 = class Vote extends _react.Component {
+	    render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'vote' },
+	            'this is vote',
+	            _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/about?debug=test' },
+	                'about'
+	            ),
+	            _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/test' },
+	                'test'
+	            ),
+	            'message: ',
+	            this.props.VoteStore.message
+	        );
+	    }
+	}, _class2.pageConfig = {
+	    pageId: 'Vote'
+	}, _temp)) || _class) || _class);
+	exports.default = Vote;
+
+/***/ },
+/* 12 */
 /*!*************************************!*\
   !*** ./common/stores/TimerStore.js ***!
   \*************************************/
@@ -654,7 +708,7 @@ module.exports =
 	exports.default = TimerStore;
 
 /***/ },
-/* 12 */
+/* 13 */
 /*!************************************!*\
   !*** ./common/stores/TodoStore.js ***!
   \************************************/
@@ -670,7 +724,7 @@ module.exports =
 	
 	var _mobx = __webpack_require__(/*! mobx */ 3);
 	
-	var _TodoModel = __webpack_require__(/*! ../models/TodoModel */ 5);
+	var _TodoModel = __webpack_require__(/*! ../models/TodoModel */ 6);
 	
 	var _TodoModel2 = _interopRequireDefault(_TodoModel);
 	
@@ -756,7 +810,51 @@ module.exports =
 	exports.default = TodoStore;
 
 /***/ },
-/* 13 */
+/* 14 */
+/*!************************************!*\
+  !*** ./common/stores/spaStores.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.stores = undefined;
+	exports.default = configureStore;
+	
+	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 28);
+	
+	var _CommonStore2 = _interopRequireDefault(_CommonStore);
+	
+	var _TimerStore = __webpack_require__(/*! ./TimerStore */ 12);
+	
+	var _TimerStore2 = _interopRequireDefault(_TimerStore);
+	
+	var _TodoStore = __webpack_require__(/*! ./TodoStore */ 13);
+	
+	var _TodoStore2 = _interopRequireDefault(_TodoStore);
+	
+	var _VoteStore = __webpack_require__(/*! ./VoteStore */ 29);
+	
+	var _VoteStore2 = _interopRequireDefault(_VoteStore);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function configureStore(state = {}) {
+	    return {
+	        commonStore: new _CommonStore2.default(state.common),
+	        timerStore: new _TimerStore2.default(state.timer),
+	        todoStore: new _TodoStore2.default(state.todo),
+	        VoteStore: new _VoteStore2.default(state.vote)
+	    };
+	}
+	
+	let stores = exports.stores = process.browser ? configureStore(window.__INITIAL_STATE__) : {};
+
+/***/ },
+/* 15 */
 /*!******************************************************!*\
   !*** ./server/middlewares/renderReactMiddleware.jsx ***!
   \******************************************************/
@@ -770,7 +868,7 @@ module.exports =
 	exports.getDefaultJSVersion = getDefaultJSVersion;
 	exports.default = reactRender;
 	
-	var _ejs = __webpack_require__(/*! ejs */ 14);
+	var _ejs = __webpack_require__(/*! ejs */ 16);
 	
 	var _ejs2 = _interopRequireDefault(_ejs);
 	
@@ -778,13 +876,13 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 16);
+	var _server = __webpack_require__(/*! react-dom/server */ 18);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _secureFilters = __webpack_require__(/*! secure-filters */ 17);
+	var _secureFilters = __webpack_require__(/*! secure-filters */ 19);
 	
-	var _fs = __webpack_require__(/*! fs */ 8);
+	var _fs = __webpack_require__(/*! fs */ 9);
 	
 	var _fs2 = _interopRequireDefault(_fs);
 	
@@ -792,7 +890,7 @@ module.exports =
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _config = __webpack_require__(/*! ../config/config.json */ 6);
+	var _config = __webpack_require__(/*! ../config/config.json */ 7);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
@@ -881,7 +979,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\middlewares"))
 
 /***/ },
-/* 14 */
+/* 16 */
 /*!**********************!*\
   !*** external "ejs" ***!
   \**********************/
@@ -890,7 +988,7 @@ module.exports =
 	module.exports = require("ejs");
 
 /***/ },
-/* 15 */
+/* 17 */
 /*!*************************!*\
   !*** external "events" ***!
   \*************************/
@@ -899,7 +997,7 @@ module.exports =
 	module.exports = require("events");
 
 /***/ },
-/* 16 */
+/* 18 */
 /*!***********************************!*\
   !*** external "react-dom/server" ***!
   \***********************************/
@@ -908,7 +1006,7 @@ module.exports =
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 17 */
+/* 19 */
 /*!*********************************!*\
   !*** external "secure-filters" ***!
   \*********************************/
@@ -917,7 +1015,7 @@ module.exports =
 	module.exports = require("secure-filters");
 
 /***/ },
-/* 18 */
+/* 20 */
 /*!*****************************************!*\
   !*** ./common/components/todo/Todo.jsx ***!
   \*****************************************/
@@ -990,7 +1088,7 @@ module.exports =
 	exports.default = Todo;
 
 /***/ },
-/* 19 */
+/* 21 */
 /*!*********************************************!*\
   !*** ./common/components/todo/TodoList.jsx ***!
   \*********************************************/
@@ -1014,11 +1112,11 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _Todo = __webpack_require__(/*! ./Todo */ 18);
+	var _Todo = __webpack_require__(/*! ./Todo */ 20);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
-	var _TodoModel = __webpack_require__(/*! ../../models/TodoModel.js */ 5);
+	var _TodoModel = __webpack_require__(/*! ../../models/TodoModel.js */ 6);
 	
 	var _TodoModel2 = _interopRequireDefault(_TodoModel);
 	
@@ -1077,7 +1175,7 @@ module.exports =
 	exports.default = TodoList;
 
 /***/ },
-/* 20 */
+/* 22 */
 /*!*****************************************!*\
   !*** ./common/fetchList/serverFetch.js ***!
   \*****************************************/
@@ -1103,7 +1201,7 @@ module.exports =
 	};
 
 /***/ },
-/* 21 */
+/* 23 */
 /*!************************************!*\
   !*** ./common/pages/App/About.jsx ***!
   \************************************/
@@ -1121,7 +1219,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	var _reactRouter = __webpack_require__(/*! react-router */ 5);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
@@ -1149,7 +1247,7 @@ module.exports =
 	exports.default = About;
 
 /***/ },
-/* 22 */
+/* 24 */
 /*!**********************************!*\
   !*** ./common/pages/App/App.jsx ***!
   \**********************************/
@@ -1178,7 +1276,7 @@ module.exports =
 	exports.default = App;
 
 /***/ },
-/* 23 */
+/* 25 */
 /*!******************************************!*\
   !*** ./common/pages/timer/TimerPage.jsx ***!
   \******************************************/
@@ -1233,7 +1331,7 @@ module.exports =
 	exports.default = TimerPage;
 
 /***/ },
-/* 24 */
+/* 26 */
 /*!****************************************!*\
   !*** ./common/pages/todo/TodoPage.jsx ***!
   \****************************************/
@@ -1257,7 +1355,7 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _TodoList = __webpack_require__(/*! ../../components/todo/TodoList */ 19);
+	var _TodoList = __webpack_require__(/*! ../../components/todo/TodoList */ 21);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
@@ -1275,7 +1373,7 @@ module.exports =
 	exports.default = TodoPage;
 
 /***/ },
-/* 25 */
+/* 27 */
 /*!**************************!*\
   !*** ./common/routes.js ***!
   \**************************/
@@ -1291,13 +1389,13 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	var _reactRouter = __webpack_require__(/*! react-router */ 5);
 	
-	var _App = __webpack_require__(/*! ./pages/App/App */ 22);
+	var _App = __webpack_require__(/*! ./pages/App/App */ 24);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _About = __webpack_require__(/*! ./pages/App/About */ 21);
+	var _About = __webpack_require__(/*! ./pages/App/About */ 23);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -1332,22 +1430,14 @@ module.exports =
 	    return _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _App2.default, onChange: onChange },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { getComponent: (nextState, cb) => {
-	                !/* require.ensure */(require => {
-	                    cb(null, require('./pages/App/Vote').default);
-	                }(__webpack_require__));
-	            } }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'vote', getComponent: (nextState, cb) => {
-	                !/* require.ensure */(require => {
-	                    cb(null, require('./pages/App/Vote').default);
-	                }(__webpack_require__));
-	            } }),
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'vote', component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'about', component: _About2.default })
 	    );
 	};
 
 /***/ },
-/* 26 */
+/* 28 */
 /*!**************************************!*\
   !*** ./common/stores/CommonStore.js ***!
   \**************************************/
@@ -1371,7 +1461,7 @@ module.exports =
 	exports.default = CommonStore;
 
 /***/ },
-/* 27 */
+/* 29 */
 /*!************************************!*\
   !*** ./common/stores/VoteStore.js ***!
   \************************************/
@@ -1388,13 +1478,11 @@ module.exports =
 	
 	var _mobx = __webpack_require__(/*! mobx */ 3);
 	
-	var _fetchList = __webpack_require__(/*! ../fetchList */ 20);
+	var _fetchList = __webpack_require__(/*! ../fetchList */ 22);
 	
 	var _fetchList2 = _interopRequireDefault(_fetchList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	function _initDefineProp(target, property, descriptor, context) {
 	    if (!descriptor) return;
@@ -1442,35 +1530,29 @@ module.exports =
 	let VoteStore = (_class = class VoteStore {
 	
 	    constructor() {
-	        _initDefineProp(this, 'data', _descriptor, this);
+	        _initDefineProp(this, 'message', _descriptor, this);
 	    }
 	
 	    loadData(opts, req) {
-	        var _this = this;
+	        console.log('loadData...');
 	
-	        return _asyncToGenerator(function* () {
-	            try {
-	                let resp = yield _fetchList2.default.getVote(opts, req);
-	
-	                (0, _mobx.runInAction)("update state after fetching data", function () {
-	                    _this.data.replace(resp.data);
-	                });
-	            } catch (ex) {}
-	        })();
+	        return _fetchList2.default.getVote(opts, req).then((0, _mobx.action)('update state after fetching data', resp => {
+	            this.message = resp.data.message;
+	        }));
 	    }
-	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'data', [_mobx.observable], {
+	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'message', [_mobx.observable], {
 	    enumerable: true,
 	    initializer: function () {
-	        return {};
+	        return '';
 	    }
 	}), _applyDecoratedDescriptor(_class.prototype, 'loadData', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'loadData'), _class.prototype)), _class);
 	exports.default = VoteStore;
 
 /***/ },
-/* 28 */
-/*!************************************!*\
-  !*** ./common/stores/spaStores.js ***!
-  \************************************/
+/* 30 */
+/*!**********************************************!*\
+  !*** ./common/utils/connectDataFetchers.jsx ***!
+  \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1478,40 +1560,123 @@ module.exports =
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.stores = undefined;
-	exports.default = configureStore;
+	exports.default = connectDataFetchers;
 	
-	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 26);
+	var _react = __webpack_require__(/*! react */ 1);
 	
-	var _CommonStore2 = _interopRequireDefault(_CommonStore);
+	var _react2 = _interopRequireDefault(_react);
 	
-	var _TimerStore = __webpack_require__(/*! ./TimerStore */ 11);
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _TimerStore2 = _interopRequireDefault(_TimerStore);
+	var _Base = __webpack_require__(/*! ../pages/Base */ 4);
 	
-	var _TodoStore = __webpack_require__(/*! ./TodoStore */ 12);
+	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _TodoStore2 = _interopRequireDefault(_TodoStore);
-	
-	var _VoteStore = __webpack_require__(/*! ./VoteStore */ 27);
-	
-	var _VoteStore2 = _interopRequireDefault(_VoteStore);
+	var _spaStores = __webpack_require__(/*! ../stores/spaStores.js */ 14);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function configureStore(state = {}) {
-	    return {
-	        commonStore: new _CommonStore2.default(state.common),
-	        timerStore: new _TimerStore2.default(state.timer),
-	        todoStore: new _TodoStore2.default(state.todo),
-	        VoteStore: new _VoteStore2.default(state.vote)
-	    };
+	let IS_FIRST_MOUNT_AFTER_LOAD = true;
+	if (process.browser) {
+	    var FIRST_PAGE_ID = window.__APP_CONFIG__.pageId;
 	}
 	
-	let stores = exports.stores = process.browser ? configureStore(window.__INITIAL_STATE__) : {};
+	// todo
+	function connectDataFetchers(storeKeys = [], cache) {
+	    return function (Page) {
+	        var _class, _class2, _temp;
+	
+	        if (process.browser) {
+	            if (!Page.pageConfig) {
+	                console.error(`Page Component static propery pageConfig.pageId required!`);
+	            } else {
+	                IS_FIRST_MOUNT_AFTER_LOAD = Page.pageConfig.pageId === FIRST_PAGE_ID;
+	            }
+	        }
+	
+	        let DataFetchersWrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = class DataFetchersWrapper extends _Base2.default {
+	
+	            static fetchData({
+	                location,
+	                params,
+	                appConfig,
+	                pageConfig
+	            }, req) {
+	                console.log(_spaStores.stores);
+	                return Promise.all(storeKeys.map(storeKey => {
+	                    return _spaStores.stores[storeKey] && _spaStores.stores[storeKey].loadData({
+	                        location,
+	                        params,
+	                        appConfig,
+	                        pageConfig
+	                    });
+	                }, req));
+	            }
+	
+	            shouldComponentUpdate(nextProps) {
+	                return this.props !== nextProps;
+	            }
+	
+	            componentDidUpdate(prevProps) {
+	                const {
+	                    location
+	                } = this.props;
+	                const {
+	                    location: prevLocation
+	                } = prevProps;
+	
+	                const isUrlChanged = location.pathname !== prevLocation.pathname || location.search.slice(1) !== prevLocation.search.slice(1);
+	
+	                if (isUrlChanged) {
+	                    this._fetchDataOnClient();
+	                }
+	            }
+	
+	            componentDidMount() {
+	                if (!cache) {
+	                    if (!IS_FIRST_MOUNT_AFTER_LOAD) {
+	                        this._fetchDataOnClient();
+	                    }
+	
+	                    IS_FIRST_MOUNT_AFTER_LOAD = false;
+	                } else {
+	                    if (!IS_FIRST_MOUNT_AFTER_LOAD && !Page.DATA_LOADED) {
+	                        this._fetchDataOnClient();
+	                    }
+	
+	                    Page.DATA_LOADED = true;
+	                    IS_FIRST_MOUNT_AFTER_LOAD = false;
+	                }
+	            }
+	
+	            _fetchDataOnClient() {
+	                this.constructor.fetchData({
+	                    params: this.props.params,
+	                    location: this.props.location,
+	                    appConfig: this.context.$appConfig
+	                });
+	            }
+	
+	            render() {
+	                return _react2.default.createElement(Page, this.props);
+	            }
+	        }, _class2.propTypes = {
+	            params: _react.PropTypes.object,
+	            location: _react.PropTypes.shape({
+	                pathname: _react.PropTypes.string.required,
+	                search: _react.PropTypes.string,
+	                query: _react.PropTypes.string.object
+	            }).isRequired
+	        }, _class2.contextTypes = {
+	            $appConfig: _react.PropTypes.object
+	        }, _class2.OriginalPage = Page, _temp)) || _class;
+	
+	        return DataFetchersWrapper;
+	    };
+	}
 
 /***/ },
-/* 29 */
+/* 31 */
 /*!******************************!*\
   !*** ./server/apis/index.js ***!
   \******************************/
@@ -1523,7 +1688,7 @@ module.exports =
 	    value: true
 	});
 	
-	var _express = __webpack_require__(/*! express */ 7);
+	var _express = __webpack_require__(/*! express */ 8);
 	
 	let router = new _express.Router();
 	
@@ -1538,7 +1703,7 @@ module.exports =
 	exports.default = router;
 
 /***/ },
-/* 30 */
+/* 32 */
 /*!*************************************!*\
   !*** ./server/controllers/Timer.js ***!
   \*************************************/
@@ -1550,11 +1715,11 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 23);
+	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 25);
 	
 	var _TimerPage2 = _interopRequireDefault(_TimerPage);
 	
-	var _TimerStore = __webpack_require__(/*! ../../common/stores/TimerStore */ 11);
+	var _TimerStore = __webpack_require__(/*! ../../common/stores/TimerStore */ 12);
 	
 	var _TimerStore2 = _interopRequireDefault(_TimerStore);
 	
@@ -1575,7 +1740,7 @@ module.exports =
 	};
 
 /***/ },
-/* 31 */
+/* 33 */
 /*!************************************!*\
   !*** ./server/controllers/Todo.js ***!
   \************************************/
@@ -1587,15 +1752,15 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 24);
+	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 26);
 	
 	var _TodoPage2 = _interopRequireDefault(_TodoPage);
 	
-	var _TodoStore = __webpack_require__(/*! ../../common/stores/TodoStore */ 12);
+	var _TodoStore = __webpack_require__(/*! ../../common/stores/TodoStore */ 13);
 	
 	var _TodoStore2 = _interopRequireDefault(_TodoStore);
 	
-	var _TodoModel = __webpack_require__(/*! ../../common/models/TodoModel */ 5);
+	var _TodoModel = __webpack_require__(/*! ../../common/models/TodoModel */ 6);
 	
 	var _TodoModel2 = _interopRequireDefault(_TodoModel);
 	
@@ -1629,7 +1794,7 @@ module.exports =
 	};
 
 /***/ },
-/* 32 */
+/* 34 */
 /*!************************************************!*\
   !*** ./server/middlewares/allowCrossDomain.js ***!
   \************************************************/
@@ -1651,7 +1816,7 @@ module.exports =
 	}
 
 /***/ },
-/* 33 */
+/* 35 */
 /*!***********************************************!*\
   !*** ./server/middlewares/spaRenderMatch.jsx ***!
   \***********************************************/
@@ -1668,41 +1833,41 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 16);
+	var _server = __webpack_require__(/*! react-dom/server */ 18);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	var _reactRouter = __webpack_require__(/*! react-router */ 5);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _routes = __webpack_require__(/*! ../../common/routes */ 25);
+	var _routes = __webpack_require__(/*! ../../common/routes */ 27);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 28);
+	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 14);
 	
 	var _spaStores2 = _interopRequireDefault(_spaStores);
 	
-	var _preRender = __webpack_require__(/*! ../utils/preRender */ 35);
+	var _preRender = __webpack_require__(/*! ../utils/preRender */ 37);
 	
 	var _preRender2 = _interopRequireDefault(_preRender);
 	
-	var _ejs = __webpack_require__(/*! ejs */ 14);
+	var _ejs = __webpack_require__(/*! ejs */ 16);
 	
 	var _ejs2 = _interopRequireDefault(_ejs);
 	
-	var _config = __webpack_require__(/*! ../config/config.json */ 6);
+	var _config = __webpack_require__(/*! ../config/config.json */ 7);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _renderReactMiddleware = __webpack_require__(/*! ./renderReactMiddleware */ 13);
+	var _renderReactMiddleware = __webpack_require__(/*! ./renderReactMiddleware */ 15);
 	
 	var _App = __webpack_require__(/*! ../../common/App.jsx */ 10);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _secureFilters = __webpack_require__(/*! secure-filters */ 17);
+	var _secureFilters = __webpack_require__(/*! secure-filters */ 19);
 	
-	var _fs = __webpack_require__(/*! fs */ 8);
+	var _fs = __webpack_require__(/*! fs */ 9);
 	
 	var _fs2 = _interopRequireDefault(_fs);
 	
@@ -1791,7 +1956,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\middlewares"))
 
 /***/ },
-/* 34 */
+/* 36 */
 /*!********************************!*\
   !*** ./server/routes/index.js ***!
   \********************************/
@@ -1803,17 +1968,17 @@ module.exports =
 	  value: true
 	});
 	
-	var _express = __webpack_require__(/*! express */ 7);
+	var _express = __webpack_require__(/*! express */ 8);
 	
-	var _fs = __webpack_require__(/*! fs */ 8);
+	var _fs = __webpack_require__(/*! fs */ 9);
 	
 	var _fs2 = _interopRequireDefault(_fs);
 	
-	var _Timer = __webpack_require__(/*! ../controllers/Timer */ 30);
+	var _Timer = __webpack_require__(/*! ../controllers/Timer */ 32);
 	
 	var _Timer2 = _interopRequireDefault(_Timer);
 	
-	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 31);
+	var _Todo = __webpack_require__(/*! ../controllers/Todo */ 33);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -1849,7 +2014,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\routes"))
 
 /***/ },
-/* 35 */
+/* 37 */
 /*!***********************************!*\
   !*** ./server/utils/preRender.js ***!
   \***********************************/
@@ -1879,7 +2044,7 @@ module.exports =
 	exports.default = preRender;
 
 /***/ },
-/* 36 */
+/* 38 */
 /*!******************************!*\
   !*** external "body-parser" ***!
   \******************************/
@@ -1888,7 +2053,7 @@ module.exports =
 	module.exports = require("body-parser");
 
 /***/ },
-/* 37 */
+/* 39 */
 /*!******************************!*\
   !*** external "compression" ***!
   \******************************/
@@ -1897,7 +2062,7 @@ module.exports =
 	module.exports = require("compression");
 
 /***/ },
-/* 38 */
+/* 40 */
 /*!********************************!*\
   !*** external "cookie-parser" ***!
   \********************************/
@@ -1906,7 +2071,7 @@ module.exports =
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 39 */
+/* 41 */
 /*!************************!*\
   !*** external "csurf" ***!
   \************************/
@@ -1915,7 +2080,7 @@ module.exports =
 	module.exports = require("csurf");
 
 /***/ },
-/* 40 */
+/* 42 */
 /*!**********************************!*\
   !*** external "express-session" ***!
   \**********************************/
@@ -1924,7 +2089,7 @@ module.exports =
 	module.exports = require("express-session");
 
 /***/ },
-/* 41 */
+/* 43 */
 /*!*************************!*\
   !*** external "helmet" ***!
   \*************************/
@@ -1933,7 +2098,7 @@ module.exports =
 	module.exports = require("helmet");
 
 /***/ },
-/* 42 */
+/* 44 */
 /*!***********************!*\
   !*** external "http" ***!
   \***********************/
@@ -1942,7 +2107,7 @@ module.exports =
 	module.exports = require("http");
 
 /***/ },
-/* 43 */
+/* 45 */
 /*!*************************!*\
   !*** external "morgan" ***!
   \*************************/
