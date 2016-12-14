@@ -599,7 +599,7 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	let Vote = (_dec = (0, _mobxReact.observer)(['commonStore', 'VoteStore']), _dec2 = (0, _connectDataFetchers2.default)(['VoteStore']), _dec(_class = _dec2(_class = (_temp = _class2 = class Vote extends _react.Component {
+	let Vote = (_dec = (0, _mobxReact.observer)(['VoteStore']), _dec2 = (0, _connectDataFetchers2.default)(['VoteStore']), _dec(_class = _dec2(_class = (_temp = _class2 = class Vote extends _react.Component {
 	    render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -1426,7 +1426,7 @@ module.exports =
 	    cb();
 	}
 	
-	exports.default = store => {
+	exports.default = stores => {
 	    return _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _App2.default, onChange: onChange },
@@ -1576,6 +1576,8 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// import { action } from 'mobx';
+	
 	let IS_FIRST_MOUNT_AFTER_LOAD = true;
 	if (process.browser) {
 	    var FIRST_PAGE_ID = window.__APP_CONFIG__.pageId;
@@ -1584,7 +1586,7 @@ module.exports =
 	// todo
 	function connectDataFetchers(storeKeys = [], cache) {
 	    return function (Page) {
-	        var _class, _class2, _temp;
+	        var _class, _temp;
 	
 	        if (process.browser) {
 	            if (!Page.pageConfig) {
@@ -1594,7 +1596,7 @@ module.exports =
 	            }
 	        }
 	
-	        let DataFetchersWrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = class DataFetchersWrapper extends _Base2.default {
+	        let DataFetchersWrapper = (_temp = _class = class DataFetchersWrapper extends _Base2.default {
 	
 	            static fetchData({
 	                location,
@@ -1660,16 +1662,17 @@ module.exports =
 	            render() {
 	                return _react2.default.createElement(Page, this.props);
 	            }
-	        }, _class2.propTypes = {
+	        }, _class.propTypes = {
 	            params: _react.PropTypes.object,
 	            location: _react.PropTypes.shape({
 	                pathname: _react.PropTypes.string.required,
 	                search: _react.PropTypes.string,
 	                query: _react.PropTypes.string.object
 	            }).isRequired
-	        }, _class2.contextTypes = {
+	        }, _class.contextTypes = {
 	            $appConfig: _react.PropTypes.object
-	        }, _class2.OriginalPage = Page, _temp)) || _class;
+	        }, _class.OriginalPage = Page, _temp);
+	
 	
 	        return DataFetchersWrapper;
 	    };

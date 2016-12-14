@@ -14,12 +14,15 @@ import fs from 'fs';
 
 const defaultTemplate = fs.readFileSync(__dirname + '/../views/index.html', 'utf8');
 
+useStaticRendering(true);
 
 export default function renderMatch(req, res) {
     const history = createMemoryHistory();
     const stores = configureStore({
-        common: {
-            user: {}
+        commonStore: {
+            user: {
+                name: 'test'
+            }
         }
     });
     let appConfig = {

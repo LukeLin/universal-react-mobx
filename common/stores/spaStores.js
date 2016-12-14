@@ -3,13 +3,15 @@ import TimerStore from './TimerStore';
 import TodoStore from './TodoStore';
 import VoteStore from './VoteStore';
 
-export default function configureStore(state = {}){
-    return {
-        commonStore: new CommonStore(state.common),
-        timerStore: new TimerStore(state.timer),
-        todoStore: new TodoStore(state.todo),
-        VoteStore: new VoteStore(state.vote)
-    };
+function initStore(Store, state){
+    return Store.fromJS ? Store.fromJS(state) : new Store(state);
 }
 
-export let stores = process.browser ? configureStore(window.__INITIAL_STATE__) : {};
+export default function configureStore(state = {}){
+    return {
+        commonStore: initStore(CommonStore, state.commonStore),
+        timerStore: initStore(TimerStore, state.timerStore),
+        todoStore: initStore(TodoStore, state.todoStore),
+        VoteStore: initStore(VoteStore, state.VoteStore)
+    };
+}

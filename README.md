@@ -65,5 +65,4 @@ support multi-page architecture without heavy react-router.
 
 ## TodoList
 * add docker support
-* add cli tool
 

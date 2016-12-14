@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 import connectDataFetchers from '../../utils/connectDataFetchers';
 
 
-@observer(['VoteStore'])
 @connectDataFetchers(['VoteStore'])
+@observer(['VoteStore'])
 class Vote extends Component {
     static pageConfig = {
         pageId: 'Vote'

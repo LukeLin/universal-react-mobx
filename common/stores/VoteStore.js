@@ -1,7 +1,8 @@
 import {
     observable,
     action,
-    runInAction
+    runInAction,
+    extendObservable
 } from 'mobx';
 
 import fetchList from '../fetchList';
@@ -9,8 +10,10 @@ import fetchList from '../fetchList';
 export default class VoteStore {
     @observable message = '';
 
-    constructor(){
-
+    constructor(state = {}){
+        runInAction('initialize VoteStore', () => {
+            extendObservable(this, state);
+        });
     }
 
     @action

@@ -5,14 +5,13 @@ import { inject, observer } from 'mobx-react';
 // import { action } from 'mobx';
 
 import Base from '../pages/Base';
-import { stores } from '../stores/spaStores.js';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
 if (process.browser) {
     var FIRST_PAGE_ID = window.__APP_CONFIG__.pageId;
 }
 
-// todo
+
 export default function connectDataFetchers(storeKeys = [], cache) {
     return function (Page) {
         if (process.browser) {
@@ -34,18 +33,19 @@ export default function connectDataFetchers(storeKeys = [], cache) {
             };
 
             static contextTypes = {
-                $appConfig: PropTypes.object
+                $appConfig: PropTypes.object,
+                mobxStores: PropTypes.object
             };
 
             static OriginalPage = Page;
 
             static fetchData({
+                stores,
                 location,
                 params,
                 appConfig,
                 pageConfig
             }, req) {
-                console.log(stores);
                 return Promise.all(
                     storeKeys.map(storeKey => {
                         return stores[storeKey] && stores[storeKey].loadData({
@@ -96,6 +96,7 @@ export default function connectDataFetchers(storeKeys = [], cache) {
 
             _fetchDataOnClient() {
                 this.constructor.fetchData({
+                    stores: this.context.mobxStores,
                     params: this.props.params,
                     location: this.props.location,
                     appConfig: this.context.$appConfig

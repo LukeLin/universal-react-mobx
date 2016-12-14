@@ -30,7 +30,7 @@ class App extends Component {
     componentDidMount(){
         if(DevTools) {
             this.setState({
-                devTools: <DevTools/>
+                devTools: <DevTools position={ { left: 0, bottom: 0 } }/>
             });
         }
     }

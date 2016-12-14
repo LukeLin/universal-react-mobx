@@ -4,7 +4,7 @@ function preRender(stores, { components, location, params }, appConfig = {}, req
 
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         const pageConfig = component.OriginalPage && component.OriginalPage.pageConfig;
-
+        
         return component.fetchData ? component.fetchData({ stores, location, params, appConfig, pageConfig }, req) : null;
     });
 

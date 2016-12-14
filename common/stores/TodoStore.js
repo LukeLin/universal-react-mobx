@@ -32,10 +32,12 @@ class TodoStore {
     }
 
     static fromJS(state) {
-        let todoStore = new TodoStore({
-            todos: state.todos.map(item => TodoModel.fromJS(item))
-        });
-        return todoStore;
+        if(state && state.todos) {
+            let todoStore = new TodoStore({
+                todos: state.todos.map(item => TodoModel.fromJS(item))
+            });
+            return todoStore;
+        }
     }
 }
 

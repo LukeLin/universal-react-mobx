@@ -14,7 +14,8 @@ class About extends Component {
             <div className="about">
                 this is about page
                 <Link to="/vote?debug=test">vote</Link>
-                text: {this.props.text}
+                <br/>
+                userName: {this.props.commonStore.user.name}
             </div>
         );
     }
