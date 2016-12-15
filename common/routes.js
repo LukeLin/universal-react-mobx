@@ -28,7 +28,7 @@ function onChange(prevState, nextState, replace, cb){
 }
 
 
-export default (stores) => {
+export default function(stores) {
     return (
         <Route path="/" component={App} onChange={ onChange }>
             <IndexRoute component={ require('./pages/App/Vote').default }/>

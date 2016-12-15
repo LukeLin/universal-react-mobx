@@ -48,7 +48,9 @@ export default function connectDataFetchers(storeKeys = [], cache) {
             }, req) {
                 return Promise.all(
                     storeKeys.map(storeKey => {
-                        return stores[storeKey] && stores[storeKey].loadData({
+                        let currentStore = stores[storeKey];
+
+                        return currentStore && currentStore.loadData && currentStore.loadData({
                             location,
                             params,
                             appConfig,

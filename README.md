@@ -30,7 +30,7 @@
 
 ### 1.传统多页面方式：
 
-#### 服务端：
+#### 1.1.服务端：
 * 注册路由
 ``` javascript
     router.get('/', getIndex);
@@ -49,7 +49,7 @@
     };
 ```
 
-#### 客户端：
+#### 1.2.客户端：
 * 客户端增加一个新页面且名称和上面定义的appName一致
 ``` javascript
     initializeRender({
@@ -58,8 +58,8 @@
     })
 ```
 
-### 单页面spa方式
-#### 新增路由：
+### 2.单页面spa方式
+#### 2.1.新增路由：
 ``` javascript
 <Route path="/" component={App} onChange={ onChange }>
     <IndexRoute component={ require('./pages/App/Vote').default }/>
@@ -67,7 +67,7 @@
     <Route path="about" component={About} />
 </Route>
 ```
-#### 页面组件通过connectDataFetchers修饰器进行服务端或客户端数据拉取
+#### 2.2.页面组件通过connectDataFetchers修饰器进行服务端或客户端数据拉取
 ``` javascript
 import React, { Component, PropTypes } from 'react';
 import { observer } from 'mobx-react';
@@ -93,4 +93,4 @@ class Vote extends Component {
 }
 ```
 
-#### 数据拉取在common/fetchList里面操作，clientFetch是给客户端使用，serverFetch给服务端使用，这样服务端就不需要外网调用
+#### 2.3.数据拉取在common/fetchList里面操作，clientFetch是给客户端使用，serverFetch给服务端使用，这样服务端就不需要外网调用
