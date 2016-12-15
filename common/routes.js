@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './pages/App/App';
-// import Vote from './universalPage/Vote';
+import Vote from './pages/App/Vote.jsx';
 import About from './pages/App/About';
 
 // require.ensure polyfill for node
@@ -31,8 +31,8 @@ function onChange(prevState, nextState, replace, cb){
 export default function(stores) {
     return (
         <Route path="/" component={App} onChange={ onChange }>
-            <IndexRoute component={ require('./pages/App/Vote').default }/>
-            <Route path="vote" component={ require('./pages/App/Vote').default }/>
+            <IndexRoute component={ Vote }/>
+            <Route path="vote" component={ Vote }/>
             <Route path="about" component={About} />
         </Route>
     );

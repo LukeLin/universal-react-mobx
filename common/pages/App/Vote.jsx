@@ -11,6 +11,11 @@ class Vote extends Component {
     static pageConfig = {
         pageId: 'Vote'
     };
+
+    componentDidMount(){
+        console.log('vote did mount');
+    }
+
     render() {
         return (
             <div className="vote">

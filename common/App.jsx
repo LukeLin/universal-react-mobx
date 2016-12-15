@@ -42,16 +42,12 @@ class App extends Component {
     }
 
     render() {
-        if(this.state.devTools) {
-            return (
-                <div>
-                    { this.props.children }
-                    { this.state.devTools }
-                </div>
-            );
-        } else {
-            return React.Children.only(this.props.children);
-        }
+        return (
+            <div>
+                { this.props.children }
+                { this.state.devTools }
+            </div>
+        );
     }
 }
 App.defaultProps = {

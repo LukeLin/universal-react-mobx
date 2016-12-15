@@ -99,7 +99,7 @@ module.exports =
 	
 	var _allowCrossDomain2 = _interopRequireDefault(_allowCrossDomain);
 	
-	var _renderReactMiddleware = __webpack_require__(/*! ./middlewares/renderReactMiddleware */ 15);
+	var _renderReactMiddleware = __webpack_require__(/*! ./middlewares/renderReactMiddleware */ 14);
 	
 	var _renderReactMiddleware2 = _interopRequireDefault(_renderReactMiddleware);
 	
@@ -251,7 +251,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _events = __webpack_require__(/*! events */ 17);
+	var _events = __webpack_require__(/*! events */ 16);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -501,7 +501,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _events = __webpack_require__(/*! events */ 17);
+	var _events = __webpack_require__(/*! events */ 16);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -536,7 +536,7 @@ module.exports =
 	    componentDidMount() {
 	        if (DevTools) {
 	            this.setState({
-	                devTools: _react2.default.createElement(DevTools, null)
+	                devTools: _react2.default.createElement(DevTools, { position: { left: 0, bottom: 0 } })
 	            });
 	        }
 	    }
@@ -546,14 +546,16 @@ module.exports =
 	    componentWillUnmount() {}
 	
 	    render() {
-	        // return React.Children.only(this.props.children);
-	
-	        return _react2.default.createElement(
-	            'div',
-	            null,
-	            this.props.children,
-	            this.state.devTools
-	        );
+	        if (this.state.devTools) {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.props.children,
+	                this.state.devTools
+	            );
+	        } else {
+	            return _react2.default.Children.only(this.props.children);
+	        }
 	    }
 	};
 	
@@ -599,7 +601,7 @@ module.exports =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	let Vote = (_dec = (0, _mobxReact.observer)(['VoteStore']), _dec2 = (0, _connectDataFetchers2.default)(['VoteStore']), _dec(_class = _dec2(_class = (_temp = _class2 = class Vote extends _react.Component {
+	let Vote = (_dec = (0, _connectDataFetchers2.default)(['VoteStore']), _dec2 = (0, _mobxReact.observer)(['VoteStore']), _dec(_class = _dec2(_class = (_temp = _class2 = class Vote extends _react.Component {
 	    render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -796,10 +798,12 @@ module.exports =
 	    }
 	
 	    static fromJS(state) {
-	        let todoStore = new TodoStore({
-	            todos: state.todos.map(item => _TodoModel2.default.fromJS(item))
-	        });
-	        return todoStore;
+	        if (state && state.todos) {
+	            let todoStore = new TodoStore({
+	                todos: state.todos.map(item => _TodoModel2.default.fromJS(item))
+	            });
+	            return todoStore;
+	        }
 	    }
 	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'todos', [_mobx.observable], {
 	    enumerable: true,
@@ -811,50 +815,6 @@ module.exports =
 
 /***/ },
 /* 14 */
-/*!************************************!*\
-  !*** ./common/stores/spaStores.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.stores = undefined;
-	exports.default = configureStore;
-	
-	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 28);
-	
-	var _CommonStore2 = _interopRequireDefault(_CommonStore);
-	
-	var _TimerStore = __webpack_require__(/*! ./TimerStore */ 12);
-	
-	var _TimerStore2 = _interopRequireDefault(_TimerStore);
-	
-	var _TodoStore = __webpack_require__(/*! ./TodoStore */ 13);
-	
-	var _TodoStore2 = _interopRequireDefault(_TodoStore);
-	
-	var _VoteStore = __webpack_require__(/*! ./VoteStore */ 29);
-	
-	var _VoteStore2 = _interopRequireDefault(_VoteStore);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function configureStore(state = {}) {
-	    return {
-	        commonStore: new _CommonStore2.default(state.common),
-	        timerStore: new _TimerStore2.default(state.timer),
-	        todoStore: new _TodoStore2.default(state.todo),
-	        VoteStore: new _VoteStore2.default(state.vote)
-	    };
-	}
-	
-	let stores = exports.stores = process.browser ? configureStore(window.__INITIAL_STATE__) : {};
-
-/***/ },
-/* 15 */
 /*!******************************************************!*\
   !*** ./server/middlewares/renderReactMiddleware.jsx ***!
   \******************************************************/
@@ -868,7 +828,7 @@ module.exports =
 	exports.getDefaultJSVersion = getDefaultJSVersion;
 	exports.default = reactRender;
 	
-	var _ejs = __webpack_require__(/*! ejs */ 16);
+	var _ejs = __webpack_require__(/*! ejs */ 15);
 	
 	var _ejs2 = _interopRequireDefault(_ejs);
 	
@@ -876,11 +836,11 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 18);
+	var _server = __webpack_require__(/*! react-dom/server */ 17);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _secureFilters = __webpack_require__(/*! secure-filters */ 19);
+	var _secureFilters = __webpack_require__(/*! secure-filters */ 18);
 	
 	var _fs = __webpack_require__(/*! fs */ 9);
 	
@@ -979,7 +939,7 @@ module.exports =
 	/* WEBPACK VAR INJECTION */}.call(exports, "server\\middlewares"))
 
 /***/ },
-/* 16 */
+/* 15 */
 /*!**********************!*\
   !*** external "ejs" ***!
   \**********************/
@@ -988,7 +948,7 @@ module.exports =
 	module.exports = require("ejs");
 
 /***/ },
-/* 17 */
+/* 16 */
 /*!*************************!*\
   !*** external "events" ***!
   \*************************/
@@ -997,7 +957,7 @@ module.exports =
 	module.exports = require("events");
 
 /***/ },
-/* 18 */
+/* 17 */
 /*!***********************************!*\
   !*** external "react-dom/server" ***!
   \***********************************/
@@ -1006,7 +966,7 @@ module.exports =
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 19 */
+/* 18 */
 /*!*********************************!*\
   !*** external "secure-filters" ***!
   \*********************************/
@@ -1015,7 +975,7 @@ module.exports =
 	module.exports = require("secure-filters");
 
 /***/ },
-/* 20 */
+/* 19 */
 /*!*****************************************!*\
   !*** ./common/components/todo/Todo.jsx ***!
   \*****************************************/
@@ -1088,7 +1048,7 @@ module.exports =
 	exports.default = Todo;
 
 /***/ },
-/* 21 */
+/* 20 */
 /*!*********************************************!*\
   !*** ./common/components/todo/TodoList.jsx ***!
   \*********************************************/
@@ -1112,7 +1072,7 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _Todo = __webpack_require__(/*! ./Todo */ 20);
+	var _Todo = __webpack_require__(/*! ./Todo */ 19);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -1175,7 +1135,7 @@ module.exports =
 	exports.default = TodoList;
 
 /***/ },
-/* 22 */
+/* 21 */
 /*!*****************************************!*\
   !*** ./common/fetchList/serverFetch.js ***!
   \*****************************************/
@@ -1201,7 +1161,7 @@ module.exports =
 	};
 
 /***/ },
-/* 23 */
+/* 22 */
 /*!************************************!*\
   !*** ./common/pages/App/About.jsx ***!
   \************************************/
@@ -1237,8 +1197,9 @@ module.exports =
 	                { to: '/vote?debug=test' },
 	                'vote'
 	            ),
-	            'text: ',
-	            this.props.text
+	            _react2.default.createElement('br', null),
+	            'userName: ',
+	            this.props.commonStore.user.name
 	        );
 	    }
 	}, _class2.pageConfig = {
@@ -1247,7 +1208,7 @@ module.exports =
 	exports.default = About;
 
 /***/ },
-/* 24 */
+/* 23 */
 /*!**********************************!*\
   !*** ./common/pages/App/App.jsx ***!
   \**********************************/
@@ -1276,7 +1237,7 @@ module.exports =
 	exports.default = App;
 
 /***/ },
-/* 25 */
+/* 24 */
 /*!******************************************!*\
   !*** ./common/pages/timer/TimerPage.jsx ***!
   \******************************************/
@@ -1331,7 +1292,7 @@ module.exports =
 	exports.default = TimerPage;
 
 /***/ },
-/* 26 */
+/* 25 */
 /*!****************************************!*\
   !*** ./common/pages/todo/TodoPage.jsx ***!
   \****************************************/
@@ -1355,7 +1316,7 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _TodoList = __webpack_require__(/*! ../../components/todo/TodoList */ 21);
+	var _TodoList = __webpack_require__(/*! ../../components/todo/TodoList */ 20);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
@@ -1373,7 +1334,7 @@ module.exports =
 	exports.default = TodoPage;
 
 /***/ },
-/* 27 */
+/* 26 */
 /*!**************************!*\
   !*** ./common/routes.js ***!
   \**************************/
@@ -1385,17 +1346,27 @@ module.exports =
 	    value: true
 	});
 	
+	exports.default = function (stores) {
+	    return _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: '/', component: _App2.default, onChange: onChange },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'vote', component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'about', component: _About2.default })
+	    );
+	};
+	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 5);
 	
-	var _App = __webpack_require__(/*! ./pages/App/App */ 24);
+	var _App = __webpack_require__(/*! ./pages/App/App */ 23);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _About = __webpack_require__(/*! ./pages/App/About */ 23);
+	var _About = __webpack_require__(/*! ./pages/App/About */ 22);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -1426,18 +1397,10 @@ module.exports =
 	    cb();
 	}
 	
-	exports.default = stores => {
-	    return _react2.default.createElement(
-	        _reactRouter.Route,
-	        { path: '/', component: _App2.default, onChange: onChange },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'vote', component: __webpack_require__(/*! ./pages/App/Vote */ 11).default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'about', component: _About2.default })
-	    );
-	};
+	;
 
 /***/ },
-/* 28 */
+/* 27 */
 /*!**************************************!*\
   !*** ./common/stores/CommonStore.js ***!
   \**************************************/
@@ -1461,7 +1424,7 @@ module.exports =
 	exports.default = CommonStore;
 
 /***/ },
-/* 29 */
+/* 28 */
 /*!************************************!*\
   !*** ./common/stores/VoteStore.js ***!
   \************************************/
@@ -1478,7 +1441,7 @@ module.exports =
 	
 	var _mobx = __webpack_require__(/*! mobx */ 3);
 	
-	var _fetchList = __webpack_require__(/*! ../fetchList */ 22);
+	var _fetchList = __webpack_require__(/*! ../fetchList */ 21);
 	
 	var _fetchList2 = _interopRequireDefault(_fetchList);
 	
@@ -1529,8 +1492,12 @@ module.exports =
 	
 	let VoteStore = (_class = class VoteStore {
 	
-	    constructor() {
+	    constructor(state = {}) {
 	        _initDefineProp(this, 'message', _descriptor, this);
+	
+	        (0, _mobx.runInAction)('initialize VoteStore', () => {
+	            (0, _mobx.extendObservable)(this, state);
+	        });
 	    }
 	
 	    loadData(opts, req) {
@@ -1547,6 +1514,51 @@ module.exports =
 	    }
 	}), _applyDecoratedDescriptor(_class.prototype, 'loadData', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'loadData'), _class.prototype)), _class);
 	exports.default = VoteStore;
+
+/***/ },
+/* 29 */
+/*!************************************!*\
+  !*** ./common/stores/spaStores.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = configureStore;
+	
+	var _CommonStore = __webpack_require__(/*! ./CommonStore */ 27);
+	
+	var _CommonStore2 = _interopRequireDefault(_CommonStore);
+	
+	var _TimerStore = __webpack_require__(/*! ./TimerStore */ 12);
+	
+	var _TimerStore2 = _interopRequireDefault(_TimerStore);
+	
+	var _TodoStore = __webpack_require__(/*! ./TodoStore */ 13);
+	
+	var _TodoStore2 = _interopRequireDefault(_TodoStore);
+	
+	var _VoteStore = __webpack_require__(/*! ./VoteStore */ 28);
+	
+	var _VoteStore2 = _interopRequireDefault(_VoteStore);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function initStore(Store, state) {
+	    return Store.fromJS ? Store.fromJS(state) : new Store(state);
+	}
+	
+	function configureStore(state = {}) {
+	    return {
+	        commonStore: initStore(_CommonStore2.default, state.commonStore),
+	        timerStore: initStore(_TimerStore2.default, state.timerStore),
+	        todoStore: initStore(_TodoStore2.default, state.todoStore),
+	        VoteStore: initStore(_VoteStore2.default, state.VoteStore)
+	    };
+	}
 
 /***/ },
 /* 30 */
@@ -1572,18 +1584,15 @@ module.exports =
 	
 	var _Base2 = _interopRequireDefault(_Base);
 	
-	var _spaStores = __webpack_require__(/*! ../stores/spaStores.js */ 14);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	let IS_FIRST_MOUNT_AFTER_LOAD = true;
 	// import { action } from 'mobx';
 	
-	let IS_FIRST_MOUNT_AFTER_LOAD = true;
 	if (process.browser) {
 	    var FIRST_PAGE_ID = window.__APP_CONFIG__.pageId;
 	}
 	
-	// todo
 	function connectDataFetchers(storeKeys = [], cache) {
 	    return function (Page) {
 	        var _class, _temp;
@@ -1599,14 +1608,16 @@ module.exports =
 	        let DataFetchersWrapper = (_temp = _class = class DataFetchersWrapper extends _Base2.default {
 	
 	            static fetchData({
+	                stores,
 	                location,
 	                params,
 	                appConfig,
 	                pageConfig
 	            }, req) {
-	                console.log(_spaStores.stores);
 	                return Promise.all(storeKeys.map(storeKey => {
-	                    return _spaStores.stores[storeKey] && _spaStores.stores[storeKey].loadData({
+	                    let currentStore = stores[storeKey];
+	
+	                    return currentStore && currentStore.loadData && currentStore.loadData({
 	                        location,
 	                        params,
 	                        appConfig,
@@ -1653,6 +1664,7 @@ module.exports =
 	
 	            _fetchDataOnClient() {
 	                this.constructor.fetchData({
+	                    stores: this.context.mobxStores,
 	                    params: this.props.params,
 	                    location: this.props.location,
 	                    appConfig: this.context.$appConfig
@@ -1670,7 +1682,8 @@ module.exports =
 	                query: _react.PropTypes.string.object
 	            }).isRequired
 	        }, _class.contextTypes = {
-	            $appConfig: _react.PropTypes.object
+	            $appConfig: _react.PropTypes.object,
+	            mobxStores: _react.PropTypes.object
 	        }, _class.OriginalPage = Page, _temp);
 	
 	
@@ -1718,7 +1731,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 25);
+	var _TimerPage = __webpack_require__(/*! ../../common/pages/timer/TimerPage.jsx */ 24);
 	
 	var _TimerPage2 = _interopRequireDefault(_TimerPage);
 	
@@ -1755,7 +1768,7 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 26);
+	var _TodoPage = __webpack_require__(/*! ../../common/pages/todo/TodoPage.jsx */ 25);
 	
 	var _TodoPage2 = _interopRequireDefault(_TodoPage);
 	
@@ -1836,17 +1849,17 @@ module.exports =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 18);
+	var _server = __webpack_require__(/*! react-dom/server */ 17);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 5);
 	
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 2);
 	
-	var _routes = __webpack_require__(/*! ../../common/routes */ 27);
+	var _routes = __webpack_require__(/*! ../../common/routes */ 26);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 14);
+	var _spaStores = __webpack_require__(/*! ../../common/stores/spaStores.js */ 29);
 	
 	var _spaStores2 = _interopRequireDefault(_spaStores);
 	
@@ -1854,7 +1867,7 @@ module.exports =
 	
 	var _preRender2 = _interopRequireDefault(_preRender);
 	
-	var _ejs = __webpack_require__(/*! ejs */ 16);
+	var _ejs = __webpack_require__(/*! ejs */ 15);
 	
 	var _ejs2 = _interopRequireDefault(_ejs);
 	
@@ -1862,13 +1875,13 @@ module.exports =
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _renderReactMiddleware = __webpack_require__(/*! ./renderReactMiddleware */ 15);
+	var _renderReactMiddleware = __webpack_require__(/*! ./renderReactMiddleware */ 14);
 	
 	var _App = __webpack_require__(/*! ../../common/App.jsx */ 10);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _secureFilters = __webpack_require__(/*! secure-filters */ 19);
+	var _secureFilters = __webpack_require__(/*! secure-filters */ 18);
 	
 	var _fs = __webpack_require__(/*! fs */ 9);
 	
@@ -1880,11 +1893,15 @@ module.exports =
 	
 	const defaultTemplate = _fs2.default.readFileSync(__dirname + '/../views/index.html', 'utf8');
 	
+	(0, _mobxReact.useStaticRendering)(true);
+	
 	function renderMatch(req, res) {
 	    const history = (0, _reactRouter.createMemoryHistory)();
 	    const stores = (0, _spaStores2.default)({
-	        common: {
-	            user: {}
+	        commonStore: {
+	            user: {
+	                name: 'test'
+	            }
 	        }
 	    });
 	    let appConfig = {
