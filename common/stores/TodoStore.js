@@ -3,13 +3,16 @@ import {
     computed,
     extendObservable,
     action,
-    runInAction
+    runInAction,
+    asFlat
 } from 'mobx';
 
 import TodoModel from '../models/TodoModel';
 
 class TodoStore {
-    @observable todos = [];
+    // only the children of the value becomes observable
+    @observable todos = asFlat([]);
+
     @computed get unfinishedTodoCount() {
         return this.todos.filter(todo => !todo.finished).length;
     }
