@@ -30,10 +30,26 @@ gulp.task('clean:dev', function (cb) {
 
 gulp.task('build:lib', function(cb){
     webpack(createLibsWebpackConfig(), function (err, stats) {
-        if (err) throw new Error(err);
+        if (err) {
+            console.log(err.stack || err);
+            if (err.details) {
+                console.log(err.details);
+            }
+            return;
+        }
 
-        if (stats.compilation.errors.length) {
-            console.log(stats.compilation.errors[0]);
+        const info = stats.toJson();
+
+        if (stats.hasErrors()) {
+            for (let error of info.errors) {
+                console.log('\n' + error + '\n');
+            }
+        }
+
+        if (stats.hasWarnings()) {
+            for (let warning of info.warnings) {
+                console.warn(warning)
+            }
         }
 
         console.log('webpack libs end');
@@ -43,10 +59,26 @@ gulp.task('build:lib', function(cb){
 
 gulp.task('build', ['clean'], function (cb) {
     webpack(createWebpackConfig(), function (err, stats) {
-        if (err) throw new Error(err);
+        if (err) {
+            console.log(err.stack || err);
+            if (err.details) {
+                console.log(err.details);
+            }
+            return;
+        }
 
-        if (stats.compilation.errors.length) {
-            console.log(stats.compilation.errors[0]);
+        const info = stats.toJson();
+
+        if (stats.hasErrors()) {
+            for (let error of info.errors) {
+                console.log('\n' + error + '\n');
+            }
+        }
+
+        if (stats.hasWarnings()) {
+            for (let warning of info.warnings) {
+                console.warn(warning)
+            }
         }
 
         console.log('webpack end');
@@ -56,10 +88,26 @@ gulp.task('build', ['clean'], function (cb) {
 
 gulp.task('build:lib:dev', function(cb){
     webpack(createLibsWebpackConfig(true), function (err, stats) {
-        if (err) throw new Error(err);
+        if (err) {
+            console.log(err.stack || err);
+            if (err.details) {
+                console.log(err.details);
+            }
+            return;
+        }
 
-        if (stats.compilation.errors.length) {
-            console.log(stats.compilation.errors[0]);
+        const info = stats.toJson();
+
+        if (stats.hasErrors()) {
+            for (let error of info.errors) {
+                console.log('\n' + error + '\n');
+            }
+        }
+
+        if (stats.hasWarnings()) {
+            for (let warning of info.warnings) {
+                console.warn(warning)
+            }
         }
 
         console.log('webpack libs dev end');
@@ -69,10 +117,26 @@ gulp.task('build:lib:dev', function(cb){
 
 gulp.task('build:dev', ['clean:dev'], function (cb) {
     webpack(createWebpackConfig(true), function (err, stats) {
-        if (err) throw new Error(err);
+        if (err) {
+            console.log(err.stack || err);
+            if (err.details) {
+                console.log(err.details);
+            }
+            return;
+        }
 
-        if (stats.compilation.errors.length) {
-            console.log(stats.compilation.errors[0].error);
+        const info = stats.toJson();
+
+        if (stats.hasErrors()) {
+            for (let error of info.errors) {
+                console.log('\n' + error + '\n');
+            }
+        }
+
+        if (stats.hasWarnings()) {
+            for (let warning of info.warnings) {
+                console.warn(warning)
+            }
         }
 
         console.log('webpack dev end');

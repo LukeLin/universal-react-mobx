@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';
 
 import connectDataFetchers from '../../utils/connectDataFetchers';
 
 
 @connectDataFetchers(['VoteStore'])
-@observer(['VoteStore'])
+@inject(['VoteStore'])
+@observer
 class Vote extends Component {
     static pageConfig = {
         pageId: 'Vote'

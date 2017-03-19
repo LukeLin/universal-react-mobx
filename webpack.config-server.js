@@ -14,7 +14,6 @@ module.exports = {
         libraryTarget: 'commonjs2'
     },
 
-    debug: true,
     cache: true,
     devtool: 'source-map',
 
@@ -26,42 +25,31 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['', '.js', '.jsx'],
-        modulesDirectories: [
-            // 'client',
-            'node_modules',
+        modules: [
+            "node_modules"
         ],
+
+        // Allow to omit extensions when requiring these files
+        extensions: [".js", ".jsx", ".es6", '.json'],
     },
 
-    externals: Object.keys(packageJson.dependencies).filter((item) => {
-        return (item !== 'react' && item !== 'react-dom')
-    }).concat([
-        // {
-        //     'react': 'react/dist/react.min.js'
-        // },
-        'react',
-        'react-dom/server'
-    ]),
+    externals: Object.keys(packageJson.dependencies)
+        .concat([
+            'react-dom/server'
+        ]),
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                // query: {
-                //     presets: [
-                //         'react'
-                //     ],
-                //     plugins: [
-                //         "transform-es2015-modules-commonjs",
-                //         "transform-async-to-generator",
-                //     ]
-                // },
-            }, {
-                test: /\.json$/,
-                loader: 'json-loader',
-            },
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true
+                    },
+                }]
+            }
         ],
     },
     plugins: [
@@ -70,13 +58,12 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.BannerPlugin('require("source-map-support").install();',
-            { raw: true, entryOnly: false }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin(),
-        // new webpack.BannerPlugin('require("source-map-support").install();',
-        //     { raw: true, entryOnly: false }),
-        new webpack.IgnorePlugin(/(\.(css|less)$)|zepto/)
+        new webpack.BannerPlugin({
+            banner: 'require("source-map-support").install();',
+            raw: true,
+            entryOnly: false
+        }),
+        new webpack.IgnorePlugin(/(\.(?:css|less|scss|sass)$)/)
     ],
 };
 

@@ -6,14 +6,13 @@
 let webpack = require('webpack');
 let path = require('path');
 let fs = require('fs');
-let HappyPack = require('happypack');
+// let HappyPack = require('happypack');
 
 module.exports = function(DEBUG){
     let happyId = DEBUG ? 'libs-debug' : 'libs';
 
     let plugins = [
-        new HappyPack({ id: happyId }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
+        // new HappyPack({ id: happyId }),
         new webpack.DllPlugin({
             path: DEBUG ? 'manifest-debug.json' : 'manifest.json',
             name: '[name]_lib',
@@ -31,13 +30,17 @@ module.exports = function(DEBUG){
                 },
                 sourceMap: false
             }),
-            new webpack.optimize.DedupePlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify('production')
                 }
-            }),
-            new webpack.NoErrorsPlugin()
+            })
+        );
+    } else {
+        plugins.push(
+            new webpack.LoaderOptionsPlugin({
+                debug: true
+            })
         );
     }
 
@@ -46,7 +49,7 @@ module.exports = function(DEBUG){
         'react-dom',
         'mobx',
         'mobx-react',
-        'react-router',
+        'react-router-dom',
         'fastclick'
     ];
     if(DEBUG) {
@@ -56,21 +59,6 @@ module.exports = function(DEBUG){
             'react-addons-perf'
             );
     }
-
-    let loaders = [
-        // Load ES6/JSX
-        {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel',
-            query: {
-                cacheDirectory: true,
-                // "presets": ["es2015"],
-                // "plugins": ["transform-runtime"]
-            },
-            happy: { id: happyId }
-        }
-    ];
 
     return {
         target: 'web',
@@ -88,15 +76,22 @@ module.exports = function(DEBUG){
         },
 
         cache: true,
-        debug: DEBUG,
 
-        // For options, see http://webpack.github.io/docs/configuration.html#devtool
         devtool: DEBUG && "eval-source-map",
-        // devtool: DEBUG && "cheap-module-eval-source-map",
 
         module: {
-            loaders: loaders,
-            noParse: []
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: [{
+                        loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true
+                        },
+                    }]
+                }
+            ]
         },
 
         plugins: plugins,
@@ -105,16 +100,12 @@ module.exports = function(DEBUG){
         },
 
         resolve: {
-            root: path.resolve('/'),
-            modulesDirectories: [
-                "node_modules",
-
-                // https://github.com/webpack/webpack-dev-server/issues/60
-                "web_modules"
+            modules: [
+                "node_modules"
             ],
 
             // Allow to omit extensions when requiring these files
-            extensions: ["", ".js", ".jsx", ".es6", '.json'],
+            extensions: [".js", ".jsx", ".es6", '.json'],
 
             alias: {}
         }

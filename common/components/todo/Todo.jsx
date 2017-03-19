@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import Base from '../../pages/Base';
 
 @observer

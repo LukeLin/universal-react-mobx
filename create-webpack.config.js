@@ -8,7 +8,7 @@ let path = require('path');
 let fs = require('fs');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 // let ProgressBarPlugin = require('progress-bar-webpack-plugin');
-let HappyPack = require('happypack');
+// let HappyPack = require('happypack');
 
 
 module.exports = function (DEBUG) {
@@ -16,8 +16,7 @@ module.exports = function (DEBUG) {
 
 
     let plugins = [
-        new HappyPack({id: happyId}),
-        new webpack.optimize.OccurrenceOrderPlugin(),
+        // new HappyPack({id: happyId}),
         //new NyanProgressPlugin()
         // new ProgressBarPlugin({
         //     format: '  build [:bar] :percent (:elapsed seconds)',
@@ -27,16 +26,22 @@ module.exports = function (DEBUG) {
             context: __dirname,
             manifest: require('./' + (DEBUG ? 'manifest-debug.json' : 'manifest.json'))
         }),
-        new ExtractTextPlugin(DEBUG ? './css/main.css' : './css/main-min.css', {
+        //CSS打包成分离文件，不打包在js文件里面
+        new ExtractTextPlugin({
+            filename: DEBUG ? './css/[name].css' : './css/[name].[contenthash:6].css',
             allChunks: true
-        })
+        }),
     ];
+
     if (DEBUG) {
         plugins.push(
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.LoaderOptionsPlugin({
+                debug: true
+            })
         );
     } else {
         plugins.push(
+            new webpack.HashedModuleIdsPlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 output: {
                     comments: false
@@ -46,36 +51,25 @@ module.exports = function (DEBUG) {
                 },
                 sourceMap: false
             }),
-            function () {
-                this.plugin("done", function (stats) {
-                    let jsonStats = stats.toJson({
-                        chunkModules: true
-                    });
-                    let assetsByChunkName = jsonStats.assetsByChunkName;
-                    let obj = {};
-                    for (let key in assetsByChunkName) {
-                        if (!assetsByChunkName.hasOwnProperty(key)) continue;
-
-                        let value = assetsByChunkName[key];
-                        let match = value[0].match(/-(\w+)\.js$/);
-                        if (match) {
-                            obj[key] = match[1];
-                        }
-                    }
-
-                    fs.writeFileSync(
-                        __dirname + "/webpack-assets.json",
-                        JSON.stringify(obj)
-                    );
-                });
-            },
-            new webpack.optimize.DedupePlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify('production')
                 }
             }),
-            new webpack.NoErrorsPlugin()
+            function () {
+                this.plugin("done", function (stats) {
+                    let jsonStats = stats.toJson({
+                        chunkModules: true
+                    });
+                    let obj = Object.assign(jsonStats.assetsByChunkName, {
+                        hash: jsonStats.hash.slice(0, 6)
+                    });
+                    fs.writeFileSync(
+                        __dirname + "/webpack-assets.json",
+                        JSON.stringify(obj)
+                    );
+                });
+            }
         );
     }
 
@@ -113,9 +107,7 @@ module.exports = function (DEBUG) {
     ];
     if (!DEBUG) {
         babelPlugins.push(
-            'transform-react-remove-prop-types',
-            'transform-react-constant-elements',
-            'transform-react-inline-elements'
+            'transform-react-remove-prop-types'
         );
     }
 
@@ -133,56 +125,63 @@ module.exports = function (DEBUG) {
         },
 
         cache: true,
-        debug: DEBUG,
 
         // For options, see http://webpack.github.io/docs/configuration.html#devtool
         //devtool: DEBUG && "eval-source-map",
         devtool: DEBUG && "#inline-source-map",
 
         module: {
-            loaders: [
+            rules: [
                 // Load ES6/JSX
                 {
                     test: /\.jsx?$/,
                     exclude: /(node_modules|bower_components)/,
-                    loader: require.resolve('babel-loader'),
-                    query: {
-                        cacheDirectory: true,
-                        // fixed resolve path in parent directory error
-                        "presets": [
-                            "react",
-                            [
-                                "es2015",
-                                { loose: true }
-                            ]
-                        ].map((preset) => {
-                            if (typeof preset === 'string')
-                                return require.resolve(`babel-preset-${preset}`);
-                            else if (Array.isArray(preset))
-                                return [require.resolve(`babel-preset-${preset[0]}`), preset[1]];
-                        }),
-                        "plugins": babelPlugins.map((preset) => {
-                            if (typeof preset === 'string')
-                                return require.resolve(`babel-plugin-${preset}`);
-                            else if (Array.isArray(preset))
-                                return [require.resolve(`babel-plugin-${preset[0]}`), preset[1]];
-                        })
-                    },
-                    happy: {id: happyId}
+                    use: [{
+                        loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true,
+                            "presets": [
+                                "react",
+                                "stage-0",
+                                [
+                                    "es2015",
+                                    {
+                                        loose: true,
+                                        modules: false
+                                    }
+                                ]
+                            ],
+                            "plugins": babelPlugins
+                        },
+                    }],
+                    // happy: {id: happyId}
                 },
 
-                {
-                    test: /\.json$/,
-                    exclude: /node_modules/,
-                    loaders: ['json-loader']
-                },
-
-                // Load styles
                 {
                     test: /\.css$/,
-                    loader: //DEBUG
-                    //? "style!css" :
-                        ExtractTextPlugin.extract("style-loader", "css-loader")
+                    exclude: /node_modules/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: [{
+                            loader: "css-loader", options: {}
+                        }]
+                    })
+                },
+                {
+                    test: /\.scss$/,
+                    exclude: /node_modules/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: [{
+                            loader: "css-loader", options: {}
+                        }, {
+                            loader: "postcss-loader", options: {}
+                        }, {
+                            loader: "sass-loader", options: {
+                                // sourceMap: true
+                            }
+                        }]
+                    })
                 },
 
                 // Load images
@@ -197,8 +196,7 @@ module.exports = function (DEBUG) {
                     loader: "url-loader?limit=1024&minetype=application/font-woff&name=./font/[name].[ext]"
                 },
                 {test: /\.(ttf|eot|svg)$/, loader: "file-loader?name=./font/[name].[ext]"}
-            ],
-            noParse: []
+            ]
         },
 
         plugins: plugins,
@@ -206,16 +204,10 @@ module.exports = function (DEBUG) {
         externals: {},
 
         resolve: {
-            root: path.resolve('/'),
-            modulesDirectories: [
-                "node_modules",
-
-                // https://github.com/webpack/webpack-dev-server/issues/60
-                "web_modules"
+            modules: [
+                "node_modules"
             ],
-
-            // Allow to omit extensions when requiring these files
-            extensions: ["", ".js", ".jsx", ".es6", '.json'],
+            extensions: [".js", ".jsx", ".es6", '.json'],
 
             alias: {
                 // 'libs': path.join(__dirname, './common/libs')

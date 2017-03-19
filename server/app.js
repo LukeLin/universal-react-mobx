@@ -21,7 +21,17 @@ app.set('host', process.env.IP || '127.0.0.1');
 app.set('port', process.env.PORT || 3000);
 app.disable('x-powered-by');
 
-app.use(helmet.contentSecurityPolicy());
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'self'", 'default.com'],
+        styleSrc: ["'self'", 'maxcdn.bootstrapcdn.com'],
+        scriptSrc: ["'self'", 'maxcdn.bootstrapcdn.com', "'unsafe-inline'", "'unsafe-eval'"],
+        imgSrc: ["'self'", 'img.com', 'data:'],
+        sandbox: ['allow-forms', 'allow-scripts', 'allow-same-origin'],
+        connectSrc: [''],
+        reportUri: '/report'
+    }
+}))
 app.use(helmet.frameguard());
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());

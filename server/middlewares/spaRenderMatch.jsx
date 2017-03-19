@@ -16,6 +16,7 @@ const defaultTemplate = fs.readFileSync(__dirname + '/../views/index.html', 'utf
 
 useStaticRendering(true);
 
+// todo: to be migrated to react router v4
 export default function renderMatch(req, res) {
     const history = createMemoryHistory();
     const stores = configureStore({

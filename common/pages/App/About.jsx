@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 
-@observer(['commonStore'])
+@inject(['commonStore'])
+@observer
 class About extends Component {
     static pageConfig = {
         pageId: 'About'
