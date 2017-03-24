@@ -8,7 +8,7 @@
 - mobx
 - express
 - ES2015
-- webpack
+- webpack 2
 - babel 6
 - Service Worker cache static files
 - Web安全
