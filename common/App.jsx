@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import EventEmitter from 'events';
 import { useStrict } from 'mobx';
 
@@ -11,7 +11,18 @@ if(process.env.NODE_ENV !== 'production' && process.browser){
 
 let mediator = new EventEmitter();
 
-class App extends Component {
+export default class App extends PureComponent {
+    static defaultProps = {
+        appConfig: null
+    };
+    static propTypes = {
+        appConfig: PropTypes.object
+    };
+    static childContextTypes = {
+        $eventBus: PropTypes.instanceOf(EventEmitter),
+        $appConfig: PropTypes.object
+    };
+
     constructor(props, context) {
         super(props, context);
 
@@ -35,12 +46,6 @@ class App extends Component {
         }
     }
 
-    componentDidUpdate(){
-    }
-
-    componentWillUnmount(){
-    }
-
     render() {
         return (
             <div>
@@ -50,15 +55,3 @@ class App extends Component {
         );
     }
 }
-App.defaultProps = {
-    appConfig: null
-};
-App.propTypes = {
-    appConfig: PropTypes.object
-};
-App.childContextTypes = {
-    $eventBus: PropTypes.instanceOf(EventEmitter),
-    $appConfig: PropTypes.object
-};
-
-export default App;
