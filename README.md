@@ -12,6 +12,7 @@
 - babel 6
 - Service Worker cache static files
 - Web安全
+- react router 4
 
 ## Start:
 - npm install universal-react-mobx
