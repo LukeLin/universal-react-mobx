@@ -10,7 +10,7 @@
 - ES2015
 - webpack 2
 - babel 6
-- Service Worker cache static files
+- Service Worker
 - Web安全
 - react router 4
 
