@@ -21,7 +21,6 @@ useStaticRendering(true);
 
 // todo: to be migrated to react router v4
 export default async function renderMatch(req, res) {
-    const history = createMemoryHistory();
     const stores = configureStore({
         commonStore: {
             user: {
@@ -33,13 +32,13 @@ export default async function renderMatch(req, res) {
         time: Date.now()
     };
 
-    const component = null;
+    let component = null;
 
     routes.some((route) => {
-        const match = matchPath(req.originalUrl, route);
-        if (match) component = route.component;
+        const match = matchPath(req.baseUrl, route);
+        if (match && match.isExact) component = route.component;
 
-        return match;
+        return match && match.isExact;
     });
 
     if (!component) {
@@ -107,65 +106,4 @@ export default async function renderMatch(req, res) {
         });
 
     res.status(200).send(pageStr);
-
-
-    /*const routes = createRoutes(stores, appConfig);
-
-    match({routes, location: req.originalUrl}, async function (err, redirect, props){
-        if (err) {
-            res.status(500).json(err);
-        } else if (redirect) {
-            res.redirect(302, redirect.pathname + redirect.search);
-        } else if (props) {
-            let debug = req.query.debug && (req.query.debug === config.application.debugName);
-            let version = config.application.version;
-            let jsVersion = '';
-            // prefer config version, useful when using CDN config
-            if (process.env.NODE_ENV === 'production') {
-                jsVersion = version && version.js;
-            } else {
-                jsVersion = getDefaultJSVersion('app');
-            }
-            let componentHTML = '';
-            let errorMsg = '';
-
-            try {
-                await preRenderMiddleware(stores, props, appConfig, req);
-
-                componentHTML = renderToString(
-                    <Provider { ...stores }>
-                        <App appConfig={ appConfig }>
-                            <RouterContext {...props} />
-                        </App>
-                    </Provider>
-                );
-
-            } catch(ex){
-                errorMsg = ex.stack;
-                console.log(ex.stack)
-            }
-
-            let pageStr = ejs.render(defaultTemplate, Object.assign({
-                errorMsg,
-                html: componentHTML,
-                state: safeJSON(stores),
-                appName: 'app',
-                title: '',
-                test: process.env.NODE_ENV !== 'production',
-                debug: debug,
-                appConfig: safeJSON(appConfig),
-                version: {
-                    js: jsVersion,
-                    css: version && version.css
-                }
-            }, {}), {
-                compileDebug: false
-            });
-
-            res.status(200).send(pageStr);
-
-        } else {
-            res.redirect('/');
-        }
-    });*/
 }

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import connectDataFetchers from '../../utils/connectDataFetchers';
 

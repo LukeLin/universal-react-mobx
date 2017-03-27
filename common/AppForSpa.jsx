@@ -1,3 +1,4 @@
+import React from 'react';
 import { Switch, Route } from 'react-router'
 
 import App from './App';
@@ -13,9 +14,11 @@ export default class AppForSpa extends App {
             <div>
                 <Switch>
                     {
-                        routes.map((route) => (
-                            <Route {...route} />
-                        ))
+                        routes.map((route) => {
+                            return (
+                                <Route {...route} key={route.path} />
+                            );
+                        })
                     }
                 </Switch>
                 {this.state.devTools}

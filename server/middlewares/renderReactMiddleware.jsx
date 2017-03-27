@@ -11,6 +11,7 @@ import config from '../config/config.json';
 useStaticRendering(true);
 
 const defaultTemplate = fs.readFileSync(__dirname + '/../views/index.html', 'utf8');
+const reg = /-(\w+)\./gi;
 
 export function getDefaultJSVersion(name) {
     let webpackAssets = fs.readFileSync(__dirname + '/../../webpack-assets.json', 'utf8');
@@ -21,7 +22,10 @@ export function getDefaultJSVersion(name) {
         console.log('webpack-assets.json parsed error');
         webpackAssets = {};
     }
-    return webpackAssets[name];
+
+    let match = reg.exec(webpackAssets[name]);
+
+    return match && match[1] || '';
 }
 
 export default function reactRender(middlewareConfig = {}) {

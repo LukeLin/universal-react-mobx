@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import EventEmitter from 'events';
 import { useStrict } from 'mobx';
 
@@ -11,7 +11,7 @@ if(process.env.NODE_ENV !== 'production' && process.browser){
 
 let mediator = new EventEmitter();
 
-export default class App extends PureComponent {
+export default class App extends Component {
     static defaultProps = {
         appConfig: null
     };

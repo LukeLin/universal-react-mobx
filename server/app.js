@@ -28,7 +28,6 @@ app.use(helmet.contentSecurityPolicy({
         scriptSrc: ["'self'", 'maxcdn.bootstrapcdn.com', "'unsafe-inline'", "'unsafe-eval'"],
         imgSrc: ["'self'", 'img.com', 'data:'],
         sandbox: ['allow-forms', 'allow-scripts', 'allow-same-origin'],
-        connectSrc: [''],
         reportUri: '/report'
     }
 }))

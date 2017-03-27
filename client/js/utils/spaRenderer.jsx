@@ -2,13 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { BrowserRouter } from 'react-router-dom'
-import createRoutes from '../../../common/routes';
 import configureStore from '../../../common/stores/spaStores';
 import App from '../../../common/AppForSpa';
 
 
 export const stores = configureStore(window.__INITIAL_STATE__);
-const routes = createRoutes(stores);
 
 function onUpdate(){
     window.scrollTo(0, 0);
