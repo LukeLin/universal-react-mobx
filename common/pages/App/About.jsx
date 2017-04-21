@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react';
 
 
-@inject(['commonStore'])
+@inject('commonStore')
 @observer
 class About extends Component {
     static pageConfig = {

@@ -4,7 +4,7 @@ import Base from '../Base';
 
 import TodoList from '../../components/todo/TodoList';
 
-@inject(['store'])
+@inject('store')
 @observer
 class TodoPage extends Base {
     constructor(props, context){

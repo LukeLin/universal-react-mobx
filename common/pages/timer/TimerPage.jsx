@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Base from '../Base';
 
-@inject(['store'])
+@inject('store')
 @observer
 class TimerPage extends Base {
     constructor(props, context){
