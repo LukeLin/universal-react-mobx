@@ -6,7 +6,7 @@ import connectDataFetchers from '../../utils/connectDataFetchers';
 
 
 @connectDataFetchers(['VoteStore'])
-@inject(['VoteStore'])
+@inject('VoteStore')
 @observer
 class Vote extends Component {
     static pageConfig = {
