@@ -11,7 +11,7 @@ import TodoModel from '../models/TodoModel';
 
 class TodoStore {
     // only the children of the value becomes observable
-    @observable todos = asFlat([]);
+    @observable.shallow todos = [];
 
     @computed get unfinishedTodoCount() {
         return this.todos.filter(todo => !todo.finished).length;
