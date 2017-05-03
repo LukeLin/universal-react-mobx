@@ -70,7 +70,8 @@
 ```
 #### 2.2.页面组件通过connectDataFetchers修饰器进行服务端或客户端数据拉取
 ``` javascript
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
 import connectDataFetchers from '../../utils/connectDataFetchers';

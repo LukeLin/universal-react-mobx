@@ -1,6 +1,5 @@
-import React, {
-    PropTypes
-} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 // import { action } from 'mobx';
 
@@ -106,7 +105,7 @@ export default function connectDataFetchers(storeKeys = [], cache) {
             }
 
             render() {
-                return ( 
+                return (
                     <Page {...this.props }/>
                 );
             }
