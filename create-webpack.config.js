@@ -16,12 +16,7 @@ module.exports = function (DEBUG) {
 
 
     let plugins = [
-        // new HappyPack({id: happyId}),
-        //new NyanProgressPlugin()
-        // new ProgressBarPlugin({
-        //     format: '  build [:bar] :percent (:elapsed seconds)',
-        //     clear: false
-        // }),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require('./' + (DEBUG ? 'manifest-debug.json' : 'manifest.json'))
@@ -129,6 +124,8 @@ module.exports = function (DEBUG) {
         // For options, see http://webpack.github.io/docs/configuration.html#devtool
         //devtool: DEBUG && "eval-source-map",
         devtool: DEBUG && "#inline-source-map",
+
+        watch: !!DEBUG,
 
         module: {
             rules: [

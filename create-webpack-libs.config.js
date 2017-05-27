@@ -14,7 +14,7 @@ module.exports = function(DEBUG){
     let plugins = [
         // new HappyPack({ id: happyId }),
         new webpack.DllPlugin({
-            path: DEBUG ? 'manifest-debug.json' : 'manifest.json',
+            path: path.resolve('./.manifest/' + (DEBUG ? 'manifest-debug.json' : 'manifest.json')),
             name: '[name]_lib',
             context: __dirname
         })
@@ -54,10 +54,10 @@ module.exports = function(DEBUG){
     ];
     if(DEBUG) {
         libs.push(
-            // 'why-did-you-update',
+            'why-did-you-update',
             'mobx-react-devtools',
             'react-addons-perf'
-            );
+        );
     }
 
     return {
@@ -66,7 +66,7 @@ module.exports = function(DEBUG){
             libs: libs
         },
         output: {
-            path: './public/',
+            path: './dist/',
             filename: DEBUG ? "./js/[name]-debug.js" : "./js/[name]-min.js",
             chunkFilename: DEBUG ? "./js/[name]-debug.js" : "./js/[name]-min.js",
             publicPath: '',
@@ -77,7 +77,7 @@ module.exports = function(DEBUG){
 
         cache: true,
 
-        devtool: DEBUG && "eval-source-map",
+        devtool: DEBUG && "inline-source-map",
 
         module: {
             rules: [

@@ -146,15 +146,3 @@ gulp.task('build:dev', ['clean:dev'], function (cb) {
         cb();
     });
 });
-
-gulp.task('watch', ['build:dev'], function(){
-    browserSync.init({
-        files: ['public/**/*.*'],
-        proxy: 'http://127.0.0.1:3000',
-        port: 4000,
-        open: false
-    });
-
-    gulp.watch('client/**', ['build:dev']);
-    gulp.watch('common/**', ['build:dev']);
-});
