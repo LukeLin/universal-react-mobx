@@ -7,6 +7,7 @@ let webpack = require('webpack');
 let path = require('path');
 let fs = require('fs');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 // let ProgressBarPlugin = require('progress-bar-webpack-plugin');
 // let HappyPack = require('happypack');
 
@@ -19,13 +20,13 @@ module.exports = function (DEBUG) {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./' + (DEBUG ? 'manifest-debug.json' : 'manifest.json'))
+            manifest: require('./.manifest/' + (DEBUG ? 'manifest-debug.json' : 'manifest.json'))
         }),
         //CSS打包成分离文件，不打包在js文件里面
         new ExtractTextPlugin({
             filename: DEBUG ? './css/[name].css' : './css/[name].[contenthash:6].css',
             allChunks: true
-        }),
+        })
     ];
 
     if (DEBUG) {
@@ -50,38 +51,40 @@ module.exports = function (DEBUG) {
                 'process.env': {
                     NODE_ENV: JSON.stringify('production')
                 }
-            }),
-            function () {
-                this.plugin("done", function (stats) {
-                    let jsonStats = stats.toJson({
-                        chunkModules: true
-                    });
-                    let obj = Object.assign(jsonStats.assetsByChunkName, {
-                        hash: jsonStats.hash.slice(0, 6)
-                    });
-                    fs.writeFileSync(
-                        __dirname + "/webpack-assets.json",
-                        JSON.stringify(obj)
-                    );
-                });
-            }
+            })
         );
     }
 
     function getPagesNames(dirPath) {
         let filesNames = fs.readdirSync(dirPath);
         let entries = {
-            app: __dirname + '/client/js/utils/spaRenderer.jsx'
+            app: [
+                __dirname + '/client/js/utils/spaRenderer.jsx'
+            ]
         };
+        plugins.push(new HtmlWebpackPlugin({
+            template: './index.html',
+            filename: 'app.html',
+            chunks: ['app']
+        }));
 
         for (let fileName of filesNames) {
+            plugins.push(new HtmlWebpackPlugin({
+                filename: fileName + '.html',
+                chunks: [fileName]
+            }));
+
             if (DEBUG) {
                 entries[fileName.split('.').shift() || fileName] = [
                     // 'webpack-hot-middleware/client',
                     `${dirPath}/${fileName}`
                 ];
             } else {
-                entries[fileName.split('.').shift() || fileName] = [`${dirPath}/${fileName}`];
+                entries[fileName.split('.').shift() || fileName] = [
+                    'react-hot-loader/patch',
+                    'webpack-hot-middleware/client',
+                    `${dirPath}/${fileName}`
+                ];
             }
         }
 
@@ -110,12 +113,12 @@ module.exports = function (DEBUG) {
         target: 'web',
         entry: getPagesNames(__dirname + '/client/js/pages'),
         output: {
-            path: __dirname + '/public/',
+            path: __dirname + '/dist/',
             filename: DEBUG ? "./js/debug/[name].js" : "./js/min/[name]-[chunkhash].js",
             // filename: DEBUG ? "./js/debug/[name].js" : "./js/min/[name].js",
             chunkFilename: DEBUG ? "./js/debug/[name].js" : "./js/min/[name]-[chunkhash].js",
             // chunkFilename: DEBUG ? "./js/debug/[name].js" : "./js/min/[name].js",
-            publicPath: '/static',
+            publicPath: '/',
             pathinfo: true
         },
 
@@ -182,17 +185,17 @@ module.exports = function (DEBUG) {
                 },
 
                 // Load images
-                {test: /\.jpg/, loader: "url-loader?limit=1024&mimetype=image/jpg&name=./img/[name].[ext]"},
-                {test: /\.gif/, loader: "url-loader?limit=1024&mimetype=image/gif&name=./img/[name].[ext]"},
-                {test: /\.png/, loader: "url-loader?limit=1024&mimetype=image/png&name=./img/[name].[ext]"},
-                {test: /\.svg/, loader: "url-loader?limit=1024&mimetype=image/svg&name=./img/[name].[ext]"},
+                { test: /\.jpg/, loader: "url-loader?limit=1024&mimetype=image/jpg&name=./img/[name].[ext]" },
+                { test: /\.gif/, loader: "url-loader?limit=1024&mimetype=image/gif&name=./img/[name].[ext]" },
+                { test: /\.png/, loader: "url-loader?limit=1024&mimetype=image/png&name=./img/[name].[ext]" },
+                { test: /\.svg/, loader: "url-loader?limit=1024&mimetype=image/svg&name=./img/[name].[ext]" },
 
                 // Load fonts
                 {
                     test: /\.woff$/,
                     loader: "url-loader?limit=1024&minetype=application/font-woff&name=./font/[name].[ext]"
                 },
-                {test: /\.(ttf|eot|svg)$/, loader: "file-loader?name=./font/[name].[ext]"}
+                { test: /\.(ttf|eot|svg)$/, loader: "file-loader?name=./font/[name].[ext]" }
             ]
         },
 

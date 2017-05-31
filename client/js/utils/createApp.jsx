@@ -7,6 +7,7 @@ import {
 } from 'mobx-react';
 import fastclick from 'fastclick';
 
+import { AppContainer } from 'react-hot-loader';
 import App from '../../../common/App.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -37,17 +38,42 @@ export default function createRender(middlewareConfig = {}) {
     }) {
         let store = Store ? (
             Store.fromJS ?
-            Store.fromJS(window.__INITIAL_STATE__) :
-            new Store(window.__INITIAL_STATE__)
+                Store.fromJS(window.__INITIAL_STATE__) :
+                new Store(window.__INITIAL_STATE__)
         ) : {};
 
         render((
-            <Provider store={ store }>
-                <App appConfig={ window.__APP_CONFIG__ }>
-                    { component } 
-                </App>
-            </Provider>
+            <AppContainer>
+                <Provider store={store}>
+                    <App appConfig={window.__APP_CONFIG__}>
+                        {component}
+                    </App>
+                </Provider>
+            </AppContainer>
         ), page, onRenderCompleted);
+
+        if (module.hot) {
+            module.hot.accept('../../../common/App.jsx', () => {
+                // If you use Webpack 2 in ES modules mode, you can
+                // use <App /> here rather than require() a <NextApp />.
+                const NextApp = require('../../../common/App.jsx').default;
+                const HotReloadWrapper = observer(() => {
+                    return (
+                        <AppContainer>
+                            <Provider store={store}>
+                                <App appConfig={window.__APP_CONFIG__}>
+                                    {component}
+                                </App>
+                            </Provider>
+                        </AppContainer>
+                    );
+                });
+                render(
+                    <HotReloadWrapper />,
+                    rootEl
+                );
+            });
+        }
 
         return Promise.resolve(store);
     };

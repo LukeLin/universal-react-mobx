@@ -9,6 +9,7 @@ var createLibsWebpackConfig = require('./create-webpack-libs.config.js');
 var createWebpackConfig = require('./create-webpack.config.js');
 var del = require('del');
 var browserSync = require('browser-sync').create();
+var runServer = require('./webpack.server.js');
 
 gulp.task('default', ['build-dev', 'build']);
 
